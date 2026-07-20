@@ -35,6 +35,7 @@ const addressField    = document.getElementById('address_field');
 const deliverySelect  = document.getElementById('delivery_select');
 const phoneInput      = document.getElementById('phone_input');
 const countryInput    = document.getElementById('country_input');
+const emailInput      = cartForm.querySelector('[name="email"]');
 const checkoutLoader  = document.querySelector('.checkout_loader');
 const checkoutCircle  = document.querySelector('.checkout_circle');
 const checkoutIcon    = document.querySelector('.checkout_icon');
@@ -42,6 +43,9 @@ const cart            = [];
 
 let wasEverFilled = false;
 let hovering = false;
+
+const colours = ['Белый', 'Черный'];
+const sizes   = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
 const mandatoryFields = cartForm.querySelectorAll('[required]');
 
@@ -157,30 +161,26 @@ function runCheckoutAnimation() {
                                 checkoutIcon.style.transform = '';
                                 checkoutIcon.style.transition = '';
                                 successPopup.classList.remove('hidden');
-                            }, 450);
+                            }, 150);
                         });
                     }, 1000);
                 }, 1000);
             }, 1000);
-        }, 200);
-    }, 1);
-}
-
-const productOptions = {
-    1: { colours: ['Белый', 'Чёрный', 'Красный'], sizes: ['S', 'M', 'L', 'XL'] },
-    2: { colours: ['Синий', 'Зелёный'],          sizes: ['M', 'L'] },
-    3: { colours: ['Жёлтый', 'Оранжевый'],       sizes: ['S', 'M', 'L'] },
-    4: { colours: ['Белый', 'Серый'],            sizes: ['XS', 'S', 'M', 'L'] },
-    5: { colours: ['Чёрный', 'Белый', 'Синий'],  sizes: ['M', 'L', 'XL'] },
-};
-
-function pickRandom(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+        }, 250);
+    }, 150);
 }
 
 function isPhoneValid() {
     const val = phoneInput.value.trim();
     return val.startsWith('+') && val.length > 1;
+}
+
+function isEmailValid() {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+}
+
+function allCartItemsComplete() {
+    return cart.every(item => item.colour && item.size);
 }
 
 function allMandatoryFilled() {
@@ -190,7 +190,7 @@ function allMandatoryFilled() {
         }
         if (input.value.trim() === '') return false;
         return true;
-    }) && isPhoneValid();
+    }) && isPhoneValid() && isEmailValid() && allCartItemsComplete();
 }
 
 function updateCheckoutState() {
@@ -218,25 +218,46 @@ function renderCart() {
     cart.forEach((item, index) => {
         const li = document.createElement('li');
 
+        const colourBtns = colours.map(c =>
+            `<button class="cart_opt_btn${item.colour === c ? ' selected' : ''}" type="button">${c}</button>`
+        ).join('');
+
+        const sizeBtns = sizes.map(s =>
+            `<button class="cart_opt_btn${item.size === s ? ' selected' : ''}" type="button">${s}</button>`
+        ).join('');
+
         li.innerHTML = `
+            <img src="https://placehold.co/100x100/ffffff/cccccc?text=${item.id}" alt="${item.name}" width="100" height="100">
             <strong>${item.name}</strong>
             <div class="cart_item_info">
-                <div class="item_colour">
-                    <span>Цвет:</span> ${item.colour}
-                </div>
-                <div class="item_size">
-                    <span>Размер:</span> ${item.size}
-                </div>
+                <div class="cart_opt_row">${colourBtns}</div>
+                <div class="cart_opt_row">${sizeBtns}</div>
             </div>
-            <button class="cart_item_remove" data-index="${index}" type="button">✕</button>
+            <button class="cart_item_remove" data-index="${index}" type="button"><span class="material-symbols-outlined">disabled_by_default</span></button>
         `;
 
         cartList.appendChild(li);
     });
 
+    document.querySelectorAll('.cart_product, .cart_list li').forEach((li, idx) => {
+        const item = cart[idx];
+
+        li.querySelectorAll('.cart_opt_btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const val = btn.textContent.trim();
+                if (colours.includes(val)) {
+                    item.colour = val;
+                } else if (sizes.includes(val)) {
+                    item.size = val;
+                }
+                renderCart();
+            });
+        });
+    });
+
     document.querySelectorAll('.cart_item_remove').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const idx = Number(e.target.dataset.index);
+            const idx = Number(e.currentTarget.dataset.index);
             cart.splice(idx, 1);
             renderCart();
         });
@@ -250,13 +271,12 @@ document.querySelectorAll('.product_card').forEach(card => {
     card.addEventListener('click', () => {
         const id   = card.dataset.id;
         const name = card.querySelector('.product_name').textContent;
-        const opts = productOptions[id];
 
         cart.push({
             id,
             name,
-            colour: pickRandom(opts.colours),
-            size:   pickRandom(opts.sizes),
+            colour: null,
+            size: null,
         });
 
         wasEverFilled = true;
