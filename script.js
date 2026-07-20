@@ -379,3 +379,12 @@ function dismissCookie() {
 cookieDismiss.addEventListener('click', dismissCookie);
 
 setTimeout(dismissCookie, 7000);
+
+const stickyHeader = document.getElementById('sticky_header');
+const runningTitle = document.getElementById('running_title');
+
+window.addEventListener('scroll', () => {
+    const isSticky = window.scrollY >= 275;
+    stickyHeader.classList.toggle('hidden', !isSticky);
+    runningTitle.classList.toggle('hidden', isSticky);
+});
