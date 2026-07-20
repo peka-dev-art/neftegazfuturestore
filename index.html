@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neftegaz Future Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,16 +17,141 @@
         <span>Hello, World! It's header in it</span>
     </header>
     <main>
-        <span>Hello, World!</span>
-
-
-        <div class="running_title"><span>Hello, World! It's a running title</span></div>
-        <article>Hello, World! It's an article</article>
-        <div class="product_list">Hello, World! It's a product list</div>
-        <div class="cart">Hello, World! It's a cart</div>
-
+        <div class="running_title">
+            <span>НЕФТЕГАЗ#БУДУЩЕЕ</span>
+        </div>
+        <article>
+            <p>Hello, World! It's an article</p>
+        </article>
+        <div class="article_pic">
+            <img src="https://placehold.co/400x300/ffffff/cccccc?text=Article+Pic" alt="Article illustration" width="400" height="300">
+        </div>
+        <div class="product_list swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide product_card" data-id="1">
+                    <img src="https://placehold.co/100x100/ffffff/cccccc?text=1" alt="Product 1" width="100" height="100">
+                    <span class="product_name">Product 1</span>
+                </div>
+                <div class="swiper-slide product_card" data-id="2">
+                    <img src="https://placehold.co/100x100/ffffff/cccccc?text=2" alt="Product 2" width="100" height="100">
+                    <span class="product_name">Product 2</span>
+                </div>
+                <div class="swiper-slide product_card" data-id="3">
+                    <img src="https://placehold.co/100x100/ffffff/cccccc?text=3" alt="Product 3" width="100" height="100">
+                    <span class="product_name">Product 3</span>
+                </div>
+                <div class="swiper-slide product_card" data-id="4">
+                    <img src="https://placehold.co/100x100/ffffff/cccccc?text=4" alt="Product 4" width="100" height="100">
+                    <span class="product_name">Product 4</span>
+                </div>
+                <div class="swiper-slide product_card" data-id="5">
+                    <img src="https://placehold.co/100x100/ffffff/cccccc?text=5" alt="Product 5" width="100" height="100">
+                    <span class="product_name">Product 5</span>
+                </div>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <button class="cart_toggle" type="button" aria-label="Toggle cart">
+            <span class="cart_toggle_icon material-symbols-outlined">shopping_cart</span>
+        </button>
+        <div class="cart_overlay hidden">
+            <div class="cart_backdrop"></div>
+            <aside class="cart">
+                <h3>Корзина</h3>
+                <ul class="cart_list">
+                </ul>
+                <p class="cart_empty">Корзина пуста</p>
+                <form class="cart_form hidden" novalidate>
+                    <label>
+                        <span>Имя *</span>
+                        <input type="text" name="name" required autocomplete="name">
+                    </label>
+                    <label>
+                        <span>E-mail *</span>
+                        <input type="email" name="email" required autocomplete="email">
+                    </label>
+                    <label>
+                        <span>Телефон *</span>
+                        <input type="tel" name="phone" required autocomplete="tel">
+                    </label>
+                    <label>
+                        <span>Страна *</span>
+                        <input type="text" name="country" required autocomplete="country-name">
+                    </label>
+                    <label>
+                        <span>Город *</span>
+                        <input type="text" name="city" required autocomplete="address-level2">
+                    </label>
+                    <label>
+                        <span>Предпочитаемый способ доставки</span>
+                        <select name="delivery" id="delivery_select">
+                            <option value="">Выберите способ</option>
+                            <option value="pochta">Почта России</option>
+                            <option value="sdek">СДЕК</option>
+                            <option value="ozon">Озон Доставка</option>
+                            <option value="wildberries">Wildberries</option>
+                            <option value="manager">Уточнить у менеджера</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span id="address_label">Адрес</span>
+                        <input type="text" name="address" autocomplete="street-address">
+                    </label>
+                </form>
+                <button class="cart_checkout" type="button" disabled>Оформить заказ</button>
+                <div class="cart_privacy">
+                    <p>
+                        <span class="material-symbols-outlined">verified_user</span>
+                        Отправленная в форме информация будет использована исключительно в целях оформления и доставки заказа. Мы не собираем и не храним Ваши персональные данные.
+                    </p>
+                    <p>
+                        <span class="material-symbols-outlined">payment_card</span>
+                        Оплата по защищенной ссылке только после подтверждения заказа менеджером.
+                    </p>
+                </div>
+            </aside>
+        </div>
     </main>
-    <footer class="footer">Hello, World! It's a footer</footer>
+
+    <footer class="footer">
+        <p>ООО "Ingenix group". Все права защищены.</p>
+        <p>peka-dev-art - website built in 2026</p>
+    </footer>
+
+    <div class="checkout_loader hidden">
+        <div class="checkout_backdrop"></div>
+        <div class="checkout_circle">
+            <span class="checkout_icon material-symbols-outlined"></span>
+        </div>
+    </div>
+
+    <div class="success_popup hidden">
+        <div class="success_popup_backdrop"></div>
+        <div class="success_popup_body">
+            <p>Благодарим за заказ! Менеджер с Вами свяжется для оплаты заказа и уточнения адреса доставки.</p>
+            <button class="handle_refresh" type="button">
+                <span class="material-symbols-outlined">delivery_truck_bolt</span>
+                OK
+            </button>
+        </div>
+    </div>
+
+    <div class="toast hidden">
+        <span class="material-symbols-outlined">exposure_plus_1</span>
+        <span>Товар добавлен в корзину</span>
+    </div>
+
+    <div class="cookie_notice">
+        <p>Мы не используем cookie, поэтому Вам не о чем беспокоиться.</p>
+        <button class="cookie_dismiss" type="button" aria-label="Dismiss">
+            <span class="material-symbols-outlined">cookie_off</span>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
