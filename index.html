@@ -62,31 +62,32 @@
                 <h3>Корзина</h3>
                 <ul class="cart_list">
                 </ul>
-                <p class="cart_empty">Корзина пуста</p>
+                <p class="cart_empty">Товары не выбраны</p>
                 <form class="cart_form hidden" novalidate>
+
                     <label>
-                        <span>Имя *</span>
+                        <span>Имя</span>
                         <input type="text" name="name" required autocomplete="name">
                     </label>
                     <label>
-                        <span>E-mail *</span>
-                        <input type="email" name="email" required autocomplete="email">
+                        <span>E-mail</span>
+                        <input type="email" name="email" required autocomplete="email" placeholder="customer@e-mail.ru">
                     </label>
                     <label>
-                        <span>Телефон *</span>
-                        <input type="tel" name="phone" required autocomplete="tel">
+                        <span>Телефон</span>
+                        <input type="tel" name="phone" id="phone_input" required autocomplete="tel" placeholder="+7 (9xx) xxx - xx - xx">
                     </label>
                     <label>
-                        <span>Страна *</span>
-                        <input type="text" name="country" required autocomplete="country-name">
+                        <span>Страна</span>
+                        <input type="text" name="country" id="country_input" required autocomplete="country-name" value="Россия">
                     </label>
                     <label>
-                        <span>Город *</span>
+                        <span>Город</span>
                         <input type="text" name="city" required autocomplete="address-level2">
                     </label>
                     <label>
                         <span>Предпочитаемый способ доставки</span>
-                        <select name="delivery" id="delivery_select">
+                        <select required name="delivery" id="delivery_select">
                             <option value="">Выберите способ</option>
                             <option value="pochta">Почта России</option>
                             <option value="sdek">СДЕК</option>
@@ -95,12 +96,15 @@
                             <option value="manager">Уточнить у менеджера</option>
                         </select>
                     </label>
-                    <label>
+                    <label id="address_field">
                         <span id="address_label">Адрес</span>
-                        <input type="text" name="address" autocomplete="street-address">
+                        <input type="text" name="address" required autocomplete="street-address">
                     </label>
                 </form>
-                <button class="cart_checkout" type="button" disabled>Оформить заказ</button>
+                <button class="cart_checkout" type="button" disabled>
+                    <span class="checkout_icon_do_not material-symbols-outlined">do_not_touch</span>
+                    <span class="checkout_text">Оформить заказ</span>
+                </button>
                 <div class="cart_privacy">
                     <p>
                         <span class="material-symbols-outlined">verified_user</span>

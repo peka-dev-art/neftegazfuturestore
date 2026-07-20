@@ -207,7 +207,10 @@ article {
 }
 
 .cart_checkout {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
     width: 100%;
     margin-top: 1rem;
     padding: 0.75rem;
@@ -220,13 +223,30 @@ article {
     transition: background 0.2s;
 }
 
+.cart_checkout .checkout_text {
+    display: inline;
+}
+
+.cart_checkout .checkout_icon_do_not {
+    display: none;
+    font-size: 20px;
+}
+
 .cart_checkout:hover:not(:disabled) {
     background: #333;
 }
 
 .cart_checkout:disabled {
     background: #999;
-    cursor: not-allowed;
+    cursor: default;
+}
+
+.cart_checkout:disabled .checkout_text {
+    display: none;
+}
+
+.cart_checkout:disabled .checkout_icon_do_not {
+    display: inline;
 }
 
 .cart_form {
@@ -240,6 +260,10 @@ article {
 .cart_form label {
     display: block;
     margin-bottom: 0.75rem;
+}
+
+.cart_form label.hidden {
+    display: none;
 }
 
 .cart_form label span {

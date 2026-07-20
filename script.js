@@ -31,7 +31,10 @@ const toast           = document.querySelector('.toast');
 const cartToggle      = document.querySelector('.cart_toggle');
 const cartToggleIcon  = document.querySelector('.cart_toggle_icon');
 const addressLabel    = document.getElementById('address_label');
+const addressField    = document.getElementById('address_field');
 const deliverySelect  = document.getElementById('delivery_select');
+const phoneInput      = document.getElementById('phone_input');
+const countryInput    = document.getElementById('country_input');
 const checkoutLoader  = document.querySelector('.checkout_loader');
 const checkoutCircle  = document.querySelector('.checkout_circle');
 const checkoutIcon    = document.querySelector('.checkout_icon');
@@ -41,6 +44,20 @@ let wasEverFilled = false;
 let hovering = false;
 
 const mandatoryFields = cartForm.querySelectorAll('[required]');
+
+phoneInput.addEventListener('input', () => {
+    let val = phoneInput.value;
+
+    if (!val.startsWith('+')) {
+        val = '+' + val;
+    }
+
+    const afterPlus = val.slice(1).replace(/\D/g, '');
+    val = '+' + afterPlus;
+
+    phoneInput.value = val;
+    updateCheckoutState();
+});
 
 function getCounterIcon(count) {
     if (count > 9) count = 9;
@@ -161,8 +178,19 @@ function pickRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function isPhoneValid() {
+    const val = phoneInput.value.trim();
+    return val.startsWith('+') && val.length > 1;
+}
+
 function allMandatoryFilled() {
-    return Array.from(mandatoryFields).every(input => input.value.trim() !== '');
+    return Array.from(mandatoryFields).every(input => {
+        if (input.closest('#address_field') && deliverySelect.value === 'manager') {
+            return true;
+        }
+        if (input.value.trim() === '') return false;
+        return true;
+    }) && isPhoneValid();
 }
 
 function updateCheckoutState() {
@@ -240,16 +268,27 @@ document.querySelectorAll('.product_card').forEach(card => {
 renderCart();
 
 mandatoryFields.forEach(input => {
-    input.addEventListener('input', updateCheckoutState);
+    if (input !== phoneInput) {
+        input.addEventListener('input', updateCheckoutState);
+    }
 });
 
 deliverySelect.addEventListener('change', () => {
     const pickupMethods = ['sdek', 'ozon', 'wildberries'];
     if (pickupMethods.includes(deliverySelect.value)) {
         addressLabel.textContent = 'Адрес и номер пункта выдачи заказов';
+        addressField.classList.remove('hidden');
+        addressField.querySelector('input').required = true;
+    } else if (deliverySelect.value === 'manager') {
+        addressLabel.textContent = 'Адрес';
+        addressField.classList.add('hidden');
+        addressField.querySelector('input').required = false;
     } else {
         addressLabel.textContent = 'Адрес';
+        addressField.classList.remove('hidden');
+        addressField.querySelector('input').required = true;
     }
+    updateCheckoutState();
 });
 
 const cartOverlay  = document.querySelector('.cart_overlay');
@@ -300,7 +339,12 @@ handleRefresh.addEventListener('click', () => {
     cartForm.querySelectorAll('input').forEach(input => {
         input.value = '';
     });
+    countryInput.value = 'Россия';
+    phoneInput.value = '+7';
     addressLabel.textContent = 'Адрес';
+    addressField.classList.remove('hidden');
+    addressField.querySelector('input').required = true;
+    deliverySelect.value = '';
     sessionStorage.clear();
     renderCart();
 });
