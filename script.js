@@ -57,6 +57,10 @@ const swiper = new Swiper('.product_list', {
     slidesPerView: 3,
     spaceBetween: 20,
     centeredSlides: true,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
 
     pagination: {
         el: '.swiper-pagination',
@@ -331,6 +335,12 @@ function renderCart() {
 }
 
 document.querySelectorAll('.product_card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        swiper.autoplay.stop();
+    });
+    card.addEventListener('mouseleave', () => {
+        swiper.autoplay.start();
+    });
     card.addEventListener('click', () => {
         const id = card.dataset.id;
         const p = products[id];

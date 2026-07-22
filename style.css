@@ -5,7 +5,8 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
     line-height: 1.6;
     color: #333;
     background: transparent;
@@ -162,14 +163,16 @@ main {
     display: flex;
     align-items: center;
     gap: 2rem;
-    max-width: 1000px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 2rem;
 }
 
 article {
     flex: 1;
-    text-align: left;
+    text-align: justify;
+    font-family: 'Stalinist One', cursive;
+    font-weight: 400;
 }
 
 .article_pic {
@@ -178,13 +181,14 @@ article {
 
 .article_pic img {
     display: block;
+    height: 500px;
+    width: 500px;
     border-radius: 4px;
 }
 
 .product_list {
     clear: both;
-    width: 90%;
-    max-width: 600px;
+    max-width: 1440px;
     margin: 3rem auto 350px auto;
     padding: 1rem 0;
 }
@@ -202,23 +206,30 @@ article {
     border: none;
     border-radius: 8px;
     background: #fff;
-    height: 400px;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
 }
 
 .product_card:hover {
+    transform: scale(1.08);
+    box-shadow:
+        0 0 20px rgba(255, 255, 255, 1),
+        0 0 40px rgba(255, 255, 255, 0.9),
+        0 0 80px rgba(255, 255, 255, 0.7),
+        0 0 120px rgba(255, 255, 255, 0.5),
+        0 0 200px rgba(255, 255, 255, 0.3),
+        0 0 30px rgba(255, 255, 255, 1) inset;
 }
 
 .product_card img {
     display: block;
     border-radius: 4px;
     background: #eee;
+    height: 500px;
+    width: 500px;
 }
 
 .product_name {
-    margin-top: 0.5rem;
-    font-weight: 600;
-    font-size: 0.75rem;
-    text-align: center;
+    display: none;
 }
 
 .swiper-button-prev,
