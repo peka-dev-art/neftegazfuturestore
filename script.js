@@ -367,6 +367,32 @@ mandatoryFields.forEach(input => {
     }
 });
 
+function updateDeliveryOptions() {
+    const isRussia = countryInput.value.trim() === 'Россия';
+
+    if (isRussia) {
+        deliverySelect.innerHTML =
+            '<option value="">Выберите способ</option>' +
+            '<option value="pochta">Почта России</option>' +
+            '<option value="sdek">СДЕК</option>' +
+            '<option value="ozon">Озон Доставка</option>' +
+            '<option value="wildberries">Wildberries</option>' +
+            '<option value="manager">Уточнить у менеджера</option>';
+    } else {
+        deliverySelect.innerHTML =
+            '<option value="">Выберите способ</option>' +
+            '<option value="pochta">Почта России / EMS</option>' +
+            '<option value="manager">Уточнить у менеджера</option>';
+    }
+
+    addressLabel.textContent = 'Адрес';
+    addressField.classList.remove('hidden');
+    addressField.querySelector('input').required = true;
+    updateCheckoutState();
+}
+
+countryInput.addEventListener('input', updateDeliveryOptions);
+
 deliverySelect.addEventListener('change', () => {
     const pickupMethods = ['sdek', 'ozon', 'wildberries'];
     if (pickupMethods.includes(deliverySelect.value)) {
@@ -434,6 +460,7 @@ handleRefresh.addEventListener('click', () => {
         input.value = '';
     });
     countryInput.value = 'Россия';
+    updateDeliveryOptions();
     phoneInput.value = '+7';
     addressLabel.textContent = 'Адрес';
     addressField.classList.remove('hidden');

@@ -202,14 +202,18 @@ article {
 
 .product_card {
     cursor: pointer;
-    padding: 1rem;
+    padding: 0;
     border: none;
     border-radius: 8px;
     background: #fff;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
     transition: box-shadow 0.4s ease, transform 0.4s ease;
 }
 
 .product_card:hover {
+    z-index: 10;
     transform: scale(1.08);
     box-shadow:
         0 0 20px rgba(255, 255, 255, 1),
@@ -222,10 +226,9 @@ article {
 
 .product_card img {
     display: block;
-    border-radius: 4px;
-    background: #eee;
-    height: 500px;
-    width: 500px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
 }
 
 .product_name {
@@ -714,7 +717,7 @@ article {
     left: 25px;
     max-width: 320px;
     padding: 1rem 1.25rem;
-    background: #fff;
+    background: #000;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     z-index: 800;
@@ -733,7 +736,7 @@ article {
 .cookie_notice p {
     font-size: 1rem;
     line-height: 1.5;
-    color: #555;
+    color: #fff;
     margin: 0;
 }
 
@@ -742,8 +745,8 @@ article {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: #000;
-    color: #fff;
+    background: #fff;
+    color: #000;
     border: none;
     cursor: pointer;
     display: flex;
@@ -753,7 +756,7 @@ article {
 }
 
 .cookie_dismiss:hover {
-    background: #333;
+    background: #ddd;
 }
 
 .cookie_dismiss .material-symbols-outlined {
