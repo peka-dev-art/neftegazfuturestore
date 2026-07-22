@@ -1,3 +1,57 @@
+const colours = ['Белый', 'Синий'];
+const sizes   = ['XS', 'S', 'M', 'L', 'XL'];
+
+const products = {
+    1: { name: 'Добыча',    genders: ['Мужская', 'Женская'] },
+    2: { name: 'Инженер',   genders: ['Мужская', 'Женская'] },
+    3: { name: 'Вернадский', genders: ['Мужская', 'Женская'] },
+    4: { name: 'Порода',    genders: ['Женская'] },
+    5: { name: 'Нефть',     genders: ['Мужская', 'Женская'] },
+};
+
+function getGenderCode(gender) {
+    return gender === 'Мужская' ? 'муж' : 'жен';
+}
+
+function getColourCode(colour) {
+    return colour === 'Белый' ? 'белый' : 'син';
+}
+
+function getProductImage(productId, gender, colour) {
+    const p = products[productId];
+    const g = gender || p.genders[0];
+    const c = colour || 'Белый';
+    return 'assets/t-shirt/' + getGenderCode(g) + '_' + getColourCode(c) + '_' + p.name + '.jpg';
+}
+
+function getAvailableGenders(productId) {
+    return products[productId].genders;
+}
+
+function pickRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function buildSwiperSlides() {
+    const wrapper = document.querySelector('.product_list .swiper-wrapper');
+    wrapper.innerHTML = '';
+
+    Object.keys(products).forEach(id => {
+        const p = products[id];
+        const gender = pickRandom(p.genders);
+        const colour = pickRandom(colours);
+        const imgSrc = getProductImage(id, gender, colour);
+
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide product_card';
+        slide.dataset.id = id;
+        slide.innerHTML = '<img src="' + imgSrc + '" alt="' + p.name + '" width="200" height="200"><span class="product_name">' + p.name + ' ' + (gender === 'Мужская' ? 'М' : 'Ж') + ' ' + colour.toLowerCase() + '</span>';
+        wrapper.appendChild(slide);
+    });
+}
+
+buildSwiperSlides();
+
 const swiper = new Swiper('.product_list', {
     loop: true,
     slidesPerView: 3,
@@ -39,13 +93,11 @@ const emailInput      = cartForm.querySelector('[name="email"]');
 const checkoutLoader  = document.querySelector('.checkout_loader');
 const checkoutCircle  = document.querySelector('.checkout_circle');
 const checkoutIcon    = document.querySelector('.checkout_icon');
+const sizeChartPopup  = document.getElementById('size_chart_popup');
 const cart            = [];
 
 let wasEverFilled = false;
 let hovering = false;
-
-const colours = ['Белый', 'Черный'];
-const sizes   = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
 const mandatoryFields = cartForm.querySelectorAll('[required]');
 
@@ -180,7 +232,7 @@ function isEmailValid() {
 }
 
 function allCartItemsComplete() {
-    return cart.every(item => item.colour && item.size);
+    return cart.every(item => item.colour && item.size && item.gender);
 }
 
 function allMandatoryFilled() {
@@ -217,30 +269,39 @@ function renderCart() {
 
     cart.forEach((item, index) => {
         const li = document.createElement('li');
+        const imgSrc = getProductImage(item.productId, item.gender, item.colour);
+        const availableGenders = getAvailableGenders(item.productId);
 
         const colourBtns = colours.map(c =>
-            `<button class="cart_opt_btn${item.colour === c ? ' selected' : ''}" type="button">${c}</button>`
+            '<button class="cart_opt_btn' + (item.colour === c ? ' selected' : '') + '" type="button">' + c + '</button>'
         ).join('');
 
         const sizeBtns = sizes.map(s =>
-            `<button class="cart_opt_btn${item.size === s ? ' selected' : ''}" type="button">${s}</button>`
+            '<button class="cart_opt_btn' + (item.size === s ? ' selected' : '') + '" type="button">' + s + '</button>'
         ).join('');
 
-        li.innerHTML = `
-            <img src="https://placehold.co/100x100/ffffff/cccccc?text=${item.id}" alt="${item.name}" width="100" height="100">
-            <strong>${item.name}</strong>
-            <div class="cart_item_info">
-                <div class="cart_opt_row">${colourBtns}</div>
-                <div class="cart_opt_row">${sizeBtns}</div>
-            </div>
-            <button class="cart_item_remove" data-index="${index}" type="button"><span class="material-symbols-outlined">disabled_by_default</span></button>
-        `;
+        const genderBtns = availableGenders.map(g =>
+            '<button class="cart_opt_btn' + (item.gender === g ? ' selected' : '') + '" type="button">' + g + '</button>'
+        ).join('');
+
+        li.innerHTML =
+            '<img src="' + imgSrc + '" alt="' + item.name + '" width="100" height="100">' +
+            '<div class="cart_item_main">' +
+                '<strong>' + item.name + '</strong>' +
+                '<div class="cart_item_info">' +
+                    '<div class="cart_opt_row">' + colourBtns + '</div>' +
+                    '<div class="cart_opt_row">' + sizeBtns + '</div>' +
+                    '<div class="cart_opt_row">' + genderBtns + '</div>' +
+                '</div>' +
+            '</div>' +
+            '<button class="cart_item_remove" data-index="' + index + '" type="button"><span class="material-symbols-outlined">disabled_by_default</span></button>';
 
         cartList.appendChild(li);
     });
 
-    document.querySelectorAll('.cart_product, .cart_list li').forEach((li, idx) => {
+    document.querySelectorAll('.cart_list li').forEach((li, idx) => {
         const item = cart[idx];
+        const availableGenders = getAvailableGenders(item.productId);
 
         li.querySelectorAll('.cart_opt_btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -249,6 +310,8 @@ function renderCart() {
                     item.colour = val;
                 } else if (sizes.includes(val)) {
                     item.size = val;
+                } else if (availableGenders.includes(val)) {
+                    item.gender = val;
                 }
                 renderCart();
             });
@@ -269,14 +332,15 @@ function renderCart() {
 
 document.querySelectorAll('.product_card').forEach(card => {
     card.addEventListener('click', () => {
-        const id   = card.dataset.id;
-        const name = card.querySelector('.product_name').textContent;
+        const id = card.dataset.id;
+        const p = products[id];
 
         cart.push({
-            id,
-            name,
+            productId: id,
+            name: p.name,
             colour: null,
             size: null,
+            gender: id === '4' ? 'Женская' : null,
         });
 
         wasEverFilled = true;
@@ -367,6 +431,8 @@ handleRefresh.addEventListener('click', () => {
     deliverySelect.value = '';
     sessionStorage.clear();
     renderCart();
+    buildSwiperSlides();
+    swiper.update();
 });
 
 const cookieNotice  = document.querySelector('.cookie_notice');
@@ -380,11 +446,24 @@ cookieDismiss.addEventListener('click', dismissCookie);
 
 setTimeout(dismissCookie, 7000);
 
-const stickyHeader = document.getElementById('sticky_header');
 const runningTitle = document.getElementById('running_title');
+const heroBanner   = document.getElementById('hero_banner');
 
 window.addEventListener('scroll', () => {
     const isSticky = window.scrollY >= 275;
-    stickyHeader.classList.toggle('hidden', !isSticky);
-    runningTitle.classList.toggle('hidden', isSticky);
+    runningTitle.classList.toggle('hidden', !isSticky);
+    heroBanner.classList.toggle('hidden', isSticky);
+});
+
+document.querySelector('.size_chart_link').addEventListener('click', (e) => {
+    e.preventDefault();
+    sizeChartPopup.classList.remove('hidden');
+});
+
+document.querySelector('.size_chart_backdrop').addEventListener('click', () => {
+    sizeChartPopup.classList.add('hidden');
+});
+
+document.querySelector('.size_chart_close').addEventListener('click', () => {
+    sizeChartPopup.classList.add('hidden');
 });

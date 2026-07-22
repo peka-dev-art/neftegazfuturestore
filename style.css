@@ -8,14 +8,47 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    background: #f5f5f5;
+    background: transparent;
 }
 
 main {
-    padding-bottom: 5rem;
 }
 
-.sticky_header {
+.main-background-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-icon {
+    position: absolute;
+    pointer-events: none;
+    color: #999;
+    opacity: 0.08;
+    z-index: 0;
+}
+
+.bg-icon.i1  { font-size: 80px; top: 5%; left: 3%; }
+.bg-icon.i2  { font-size: 120px; top: 12%; right: 8%; }
+.bg-icon.i3  { font-size: 60px; top: 30%; left: 15%; }
+.bg-icon.i4  { font-size: 100px; top: 45%; right: 5%; }
+.bg-icon.i5  { font-size: 70px; top: 55%; left: 8%; }
+.bg-icon.i6  { font-size: 90px; top: 70%; right: 12%; }
+.bg-icon.i7  { font-size: 110px; top: 80%; left: 20%; }
+.bg-icon.i8  { font-size: 50px; top: 8%; left: 50%; }
+.bg-icon.i9  { font-size: 85px; top: 20%; right: 25%; }
+.bg-icon.i10 { font-size: 130px; top: 35%; left: 60%; }
+.bg-icon.i11 { font-size: 55px; top: 50%; left: 40%; }
+.bg-icon.i12 { font-size: 95px; top: 65%; right: 30%; }
+.bg-icon.i13 { font-size: 75px; top: 78%; left: 70%; }
+.bg-icon.i14 { font-size: 105px; top: 15%; left: 85%; }
+.bg-icon.i15 { font-size: 65px; top: 42%; right: 50%; }
+.bg-icon.i16 { font-size: 115px; top: 58%; left: 30%; }
+.bg-icon.i17 { font-size: 45px; top: 25%; left: 35%; }
+.bg-icon.i18 { font-size: 88px; top: 72%; left: 55%; }
+.bg-icon.i19 { font-size: 72px; top: 90%; right: 15%; }
+.bg-icon.i20 { font-size: 98px; top: 3%; right: 40%; }
+
+.running_title {
     position: sticky;
     top: 0;
     z-index: 110;
@@ -27,25 +60,25 @@ main {
     overflow: hidden;
 }
 
-.sticky_header.hidden {
+.running_title.hidden {
     display: none;
 }
 
-.sticky_header span {
-    font-size: 1rem;
+.running_title span {
+    font-size: 200px;
     color: #fff;
     white-space: nowrap;
-    animation: stickyMarquee 6s linear infinite;
+    animation: runningMarquee 50s linear infinite;
     position: absolute;
     left: 100%;
 }
 
-@keyframes stickyMarquee {
+@keyframes runningMarquee {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-200%); }
 }
 
-.running_title {
+.hero_banner {
     position: relative;
     font-family: 'Stalinist One', cursive;
     height: 50vh;
@@ -56,11 +89,11 @@ main {
     overflow: hidden;
 }
 
-.running_title.hidden {
+.hero_banner.hidden {
     visibility: hidden;
 }
 
-.running_title::before {
+.hero_banner::before {
     content: '';
     position: absolute;
     inset: -50%;
@@ -79,7 +112,7 @@ main {
     100% { transform: rotate(360deg) scale(1.3); }
 }
 
-.running_title::after {
+.hero_banner::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -114,7 +147,7 @@ main {
     100% { transform: scale(4) translate(0, -0.5%); opacity: 0.3; }
 }
 
-.running_title span {
+.hero_banner span {
     position: relative;
     z-index: 1;
     font-size: clamp(2rem, 8vw, 5rem);
@@ -125,25 +158,25 @@ main {
     line-height: 1.1;
 }
 
-.title_sentinel {
-    height: 0;
+.article_row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 article {
-    float: left;
-    width: 55%;
-    padding: 2rem;
+    flex: 1;
+    text-align: left;
 }
 
 .article_pic {
-    float: right;
-    width: 40%;
-    padding: 2rem;
+    flex-shrink: 0;
 }
 
 .article_pic img {
-    max-width: 100%;
-    height: auto;
     display: block;
     border-radius: 4px;
 }
@@ -152,7 +185,7 @@ article {
     clear: both;
     width: 90%;
     max-width: 600px;
-    margin: 3rem auto;
+    margin: 3rem auto 350px auto;
     padding: 1rem 0;
 }
 
@@ -166,15 +199,13 @@ article {
 .product_card {
     cursor: pointer;
     padding: 1rem;
-    border: 2px solid transparent;
+    border: none;
     border-radius: 8px;
     background: #fff;
-    transition: border-color 0.2s, transform 0.2s;
+    height: 400px;
 }
 
 .product_card:hover {
-    border-color: #0f0;
-    transform: scale(1.05);
 }
 
 .product_card img {
@@ -186,6 +217,7 @@ article {
 .product_name {
     margin-top: 0.5rem;
     font-weight: 600;
+    font-size: 0.75rem;
     text-align: center;
 }
 
@@ -250,8 +282,8 @@ article {
 .cart_list li {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem 1rem;
+    align-items: flex-start;
+    gap: 0.5rem;
     padding: 0.75rem 0;
     border-bottom: 1px solid #eee;
 }
@@ -268,10 +300,22 @@ article {
     background: #eee;
 }
 
+.cart_item_main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.cart_item_main strong {
+    font-size: 0.9rem;
+}
+
 .cart_item_info {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
+    width: 100%;
 }
 
 .cart_opt_row {
@@ -297,13 +341,13 @@ article {
 }
 
 .cart_opt_btn.selected {
-    background: #000;
+    background: #0044cc;
     color: #fff;
     box-shadow: none;
 }
 
 .cart_item_remove {
-    margin-left: auto;
+    flex-shrink: 0;
     background: none;
     border: none;
     color: #cc0000;
@@ -325,6 +369,69 @@ article {
 
 .cart_empty.hidden {
     display: none;
+}
+
+.size_chart_link {
+    display: block;
+    font-size: 7px;
+    color: #aaa;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.size_chart_link:hover {
+    color: #666;
+}
+
+.size_chart_popup {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.size_chart_popup.hidden {
+    display: none;
+}
+
+.size_chart_backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.size_chart_body {
+    position: relative;
+    width: 400px;
+    height: 400px;
+}
+
+.size_chart_body img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.size_chart_close {
+    position: absolute;
+    bottom: -2px;
+    right: 2px;
+    background: none;
+    border: none;
+    color: #cc0000;
+    padding: 0;
+    cursor: pointer;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.size_chart_close:hover {
+    color: #990000;
 }
 
 .cart_checkout {
@@ -643,14 +750,10 @@ article {
 }
 
 .footer {
-    position: fixed;
-    bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
     text-align: center;
     font-size: 0.75rem;
     color: #888;
-    white-space: nowrap;
+    padding: 2rem 0 0;
 }
 
 .footer p {

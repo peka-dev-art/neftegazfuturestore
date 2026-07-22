@@ -18,41 +18,46 @@
 
     </header>
     <main>
-        <div class="sticky_header hidden" id="sticky_header">
+        <div class="running_title hidden" id="running_title">
+            <span>#БУДУЩЕЕ #НЕФТЕГАЗ #ИННОВАЦИИ #НАУКА #ТЕХНОЛОГИИ</span>
+        </div>
+        <div class="main-background-container">
+            <span class="bg-icon material-symbols-outlined i1">oil_barrel</span>
+            <span class="bg-icon material-symbols-outlined i2">valve</span>
+            <span class="bg-icon material-symbols-outlined i3">fireplace</span>
+            <span class="bg-icon material-symbols-outlined i4">volcano</span>
+            <span class="bg-icon material-symbols-outlined i5">factory</span>
+            <span class="bg-icon material-symbols-outlined i6">experiment</span>
+            <span class="bg-icon material-symbols-outlined i7">travel_explore</span>
+            <span class="bg-icon material-symbols-outlined i8">planet</span>
+            <span class="bg-icon material-symbols-outlined i9">yard</span>
+            <span class="bg-icon material-symbols-outlined i10">oil_barrel</span>
+            <span class="bg-icon material-symbols-outlined i11">valve</span>
+            <span class="bg-icon material-symbols-outlined i12">volcano</span>
+            <span class="bg-icon material-symbols-outlined i13">factory</span>
+            <span class="bg-icon material-symbols-outlined i14">planet</span>
+            <span class="bg-icon material-symbols-outlined i15">travel_explore</span>
+            <span class="bg-icon material-symbols-outlined i16">yard</span>
+            <span class="bg-icon material-symbols-outlined i17">experiment</span>
+            <span class="bg-icon material-symbols-outlined i18">fireplace</span>
+            <span class="bg-icon material-symbols-outlined i19">oil_barrel</span>
+            <span class="bg-icon material-symbols-outlined i20">valve</span>
+        <div class="hero_banner" id="hero_banner">
             <span>НЕФТЕГАЗ#БУДУЩЕЕ</span>
         </div>
-        <div class="running_title" id="running_title">
-            <span>НЕФТЕГАЗ#БУДУЩЕЕ</span>
-        </div>
-        <article>
-            <p>Hello, World! It's an article</p>
-        </article>
-        <div class="article_pic">
-            <img src="https://placehold.co/400x300/ffffff/cccccc?text=Article+Pic" alt="Article illustration" width="400" height="300">
+        <div class="article_row">
+            <article>
+                <p>Нам повезло родиться в стране, богатой на талантливых людей и природные ресурсы! Люди, ежедневно кующие славу и доблесть нефтегазовой отрасли России, заслуживают того, чтобы гордиться своим трудом и своей причастностью к общему великому делу.
+                Команда бренда НЕФТЕГАЗ#БУДУЩЕЕ, являясь сама частью отрасли, отобрала самые лучшие материалы и создала запоминающийся мерч «для своих» - для геологов, разработчиков, буровиков, добытчиков, строителей и экономистов.
+                Добро пожаловать в магазин НЕФТЕГАЗ#БУДУЩЕЕ – первый магазин качественного мерча, созданного нефтяниками для нефтяников!
+</p>
+            </article>
+            <div class="article_pic">
+                <img src="assets\logo.jpg" alt="Article illustration" width="300" height="300">
+            </div>
         </div>
         <div class="product_list swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide product_card" data-id="1">
-                    <img src="https://placehold.co/200x200/ffffff/cccccc?text=1" alt="Product 1" width="200" height="200">
-                    <span class="product_name">Product 1</span>
-                </div>
-                <div class="swiper-slide product_card" data-id="2">
-                    <img src="https://placehold.co/200x200/ffffff/cccccc?text=2" alt="Product 2" width="200" height="200">
-                    <span class="product_name">Product 2</span>
-                </div>
-                <div class="swiper-slide product_card" data-id="3">
-                    <img src="https://placehold.co/200x200/ffffff/cccccc?text=3" alt="Product 3" width="200" height="200">
-                    <span class="product_name">Product 3</span>
-                </div>
-                <div class="swiper-slide product_card" data-id="4">
-                    <img src="https://placehold.co/200x200/ffffff/cccccc?text=4" alt="Product 4" width="200" height="200">
-                    <span class="product_name">Product 4</span>
-                </div>
-                <div class="swiper-slide product_card" data-id="5">
-                    <img src="https://placehold.co/200x200/ffffff/cccccc?text=5" alt="Product 5" width="200" height="200">
-                    <span class="product_name">Product 5</span>
-                </div>
-            </div>
+            <div class="swiper-wrapper"></div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
             <div class="swiper-pagination"></div>
@@ -67,6 +72,7 @@
                 <ul class="cart_list">
                 </ul>
                 <p class="cart_empty">Товары не выбраны</p>
+                <a class="size_chart_link" href="assets/sizesheet.jpg" target="_blank">Размерная сетка</a>
                 <form class="cart_form hidden" novalidate>
 
                     <label>
@@ -121,12 +127,12 @@
                 </div>
             </aside>
         </div>
+        <footer class="footer">
+            <p>ООО "Ingenix group". Все права защищены.</p>
+            <p>peka-dev-art - website built in 2026</p>
+        </footer>
+        </div>
     </main>
-
-    <footer class="footer">
-        <p>ООО "Ingenix group". Все права защищены.</p>
-        <p>peka-dev-art - website built in 2026</p>
-    </footer>
 
     <div class="checkout_loader hidden">
         <div class="checkout_backdrop"></div>
@@ -142,6 +148,16 @@
             <button class="handle_refresh" type="button">
                 <span class="material-symbols-outlined">delivery_truck_bolt</span>
                 OK
+            </button>
+        </div>
+    </div>
+
+    <div class="size_chart_popup hidden" id="size_chart_popup">
+        <div class="size_chart_backdrop"></div>
+        <div class="size_chart_body">
+            <img src="assets/sizesheet.jpg" alt="Размерная сетка" width="400" height="400">
+            <button class="size_chart_close" type="button">
+                <span class="material-symbols-outlined">disabled_by_default</span>
             </button>
         </div>
     </div>
