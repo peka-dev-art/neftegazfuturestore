@@ -79,6 +79,32 @@ const swiper = new Swiper('.product_list', {
     },
 });
 
+const introScreen  = document.getElementById('intro_screen');
+const fadeOverlay  = document.getElementById('fade_overlay');
+const mainSite     = document.getElementById('main_site');
+
+setTimeout(() => {
+    fadeOverlay.classList.add('active');
+}, 5000);
+
+setTimeout(() => {
+    introScreen.style.display = 'none';
+    mainSite.classList.remove('hidden');
+    mainSite.classList.add('fading_in');
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            mainSite.classList.add('visible');
+            fadeOverlay.classList.remove('active');
+        });
+    });
+}, 6000);
+
+setTimeout(() => {
+    fadeOverlay.style.display = 'none';
+    mainSite.classList.remove('fading_in');
+}, 7000);
+
 const cartList        = document.querySelector('.cart_list');
 const cartEmpty       = document.querySelector('.cart_empty');
 const cartForm        = document.querySelector('.cart_form');
@@ -434,7 +460,10 @@ const animatedElements = document.querySelectorAll('.anim-fade-up');
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            const delay = parseInt(entry.target.dataset.delay) || 0;
+            setTimeout(() => {
+                entry.target.classList.add('is-visible');
+            }, delay);
             observer.unobserve(entry.target);
         }
     });
