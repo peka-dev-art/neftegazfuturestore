@@ -537,7 +537,7 @@ checkoutBtn.addEventListener('click', () => {
         address: cartForm.querySelector('[name="address"]').value || '—',
     };
 
-    emailjs.send('service_pwzlbvm', 'template_ajjn1a4', params)
+    emailjs.send('service_yj5p2tg', 'template_ajjn1a4', params)
         .then(() => {
             runCheckoutAnimation();
         })
