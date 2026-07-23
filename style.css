@@ -87,7 +87,7 @@ main {
     inset: 0;
     z-index: 2000;
     font-family: 'Stalinist One', cursive;
-    background: radial-gradient(ellipse at 50% 50%, #1a0a3e 0%, #0a0a1a 50%, #020210 100%);
+    background: radial-gradient(ellipse at 50% 50%, #0a1a3e 0%, #0a0a1a 50%, #020210 100%);
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -129,9 +129,9 @@ main {
         radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
         radial-gradient(2px 5px at 50% 50%, #fff, transparent),
         radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(100px 100px at 20% 30%, rgba(100,50,180,0.15), transparent),
-        radial-gradient(150px 150px at 70% 60%, rgba(30,80,180,0.1), transparent),
-        radial-gradient(80px 80px at 50% 50%, rgba(100,50,200,0.12), transparent);
+        radial-gradient(100px 100px at 20% 30%, rgba(30,80,200,0.15), transparent),
+        radial-gradient(150px 150px at 70% 60%, rgba(30,80,200,0.1), transparent),
+        radial-gradient(80px 80px at 50% 50%, rgba(30,80,220,0.12), transparent);
     animation: warpStars 0.8s linear infinite;
 }
 
@@ -174,7 +174,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(ellipse at 50% 50%, #1a0a3e 0%, #0a0a1a 50%, #020210 100%);
+    background: radial-gradient(ellipse at 50% 50%, #0a1a3e 0%, #0a0a1a 50%, #020210 100%);
     overflow: hidden;
 }
 
@@ -222,9 +222,9 @@ main {
         radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
         radial-gradient(2px 5px at 50% 50%, #fff, transparent),
         radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(100px 100px at 20% 30%, rgba(100,50,180,0.15), transparent),
-        radial-gradient(150px 150px at 70% 60%, rgba(30,80,180,0.1), transparent),
-        radial-gradient(80px 80px at 50% 50%, rgba(100,50,200,0.12), transparent);
+        radial-gradient(100px 100px at 20% 30%, rgba(30,80,200,0.15), transparent),
+        radial-gradient(150px 150px at 70% 60%, rgba(30,80,200,0.1), transparent),
+        radial-gradient(80px 80px at 50% 50%, rgba(30,80,220,0.12), transparent);
     animation: warpStars 0.8s linear infinite;
 }
 
@@ -241,7 +241,7 @@ main {
     z-index: 1;
     font-size: 104px;
     color: #fff;
-    text-shadow: 0 0 40px rgba(150, 100, 255, 0.6), 0 0 80px rgba(100, 150, 255, 0.4);
+    text-shadow: 0 0 40px rgba(80, 150, 255, 0.6), 0 0 80px rgba(50, 120, 255, 0.4);
     text-align: center;
     padding: 0 1rem;
     line-height: 1.1;
