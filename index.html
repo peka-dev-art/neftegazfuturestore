@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200;700&family=Stalinist+One&family=Tiny5&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rubik+Iso&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="style.css">
@@ -18,10 +20,13 @@
 
     <div class="intro_screen" id="intro_screen">
         <div class="intro_crawl" id="intro_crawl">
-            <p>Нам повезло родиться в стране, богатой на талантливых людей и природные ресурсы! Люди, ежедневно кующие славу и доблесть нефтегазовой отрасли России, заслуживают того, чтобы гордиться своим трудом и своей причастностью к общему великому делу.
-            Команда бренда НЕФТЕГАЗ#БУДУЩЕЕ, являясь сама частью отрасли, отобрала самые лучшие материалы и создала запоминающийся мерч «для своих» - для геологов, разработчиков, буровиков, добытчиков, строителей и экономистов.
-            Добро пожаловать в магазин НЕФТЕГАЗ#БУДУЩЕЕ – первый магазин качественного мерча, созданного нефтяниками для нефтяников!
-</p>
+            <div class="intro_crawl_text">
+                <p class="intro_part intro_p1">Нам повезло родиться в стране, богатой на талантливых людей и природные ресурсы!</p>
+                <p class="intro_part intro_p2">Люди, ежедневно кующие славу и доблесть нефтегазовой отрасли России, заслуживают того, чтобы гордиться своим трудом и своей причастностью к общему великому делу.</p>
+                <p class="intro_part intro_p3">Команда бренда НЕФТЕГАЗ#БУДУЩЕЕ, являясь сама частью отрасли, отобрала самые лучшие материалы и создала запоминающийся мерч «для своих» —</p>
+                <p class="intro_part intro_p4">для геологов, разработчиков, буровиков, добытчиков, строителей и экономистов.</p>
+                <p class="intro_part intro_p5">Добро пожаловать в магазин НЕФТЕГАЗ#БУДУЩЕЕ – первый магазин качественного мерча, созданного нефтяниками для нефтяников!</p>
+            </div>
         </div>
     </div>
 
@@ -62,13 +67,14 @@
         <div class="hero_banner" id="hero_banner">
             <span>НЕФТЕГАЗ#БУДУЩЕЕ</span>
         </div>
-        <div class="article_row">
+        <div class="article_row" id="article_row">
             <article>
                 <p>Нам повезло родиться в стране, богатой на талантливых людей и природные ресурсы! Люди, ежедневно кующие славу и доблесть нефтегазовой отрасли России, заслуживают того, чтобы гордиться своим трудом и своей причастностью к общему великому делу.
                 Команда бренда НЕФТЕГАЗ#БУДУЩЕЕ, являясь сама частью отрасли, отобрала самые лучшие материалы и создала запоминающийся мерч «для своих» - для геологов, разработчиков, буровиков, добытчиков, строителей и экономистов.
                 Добро пожаловать в магазин НЕФТЕГАЗ#БУДУЩЕЕ – первый магазин качественного мерча, созданного нефтяниками для нефтяников!
 </p>
             </article>
+            <h2 class="article_alt_heading">Выбери свой стиль</h2>
             <div class="article_pic" id="article_pic">
                 <img src="assets/logo.jpg" alt="Article illustration" width="300" height="300">
             </div>
@@ -194,6 +200,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 

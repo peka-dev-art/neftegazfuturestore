@@ -79,31 +79,63 @@ const swiper = new Swiper('.product_list', {
     },
 });
 
+emailjs.init('-0gW1CNbKMXPdX22p');
+
 const introScreen  = document.getElementById('intro_screen');
 const fadeOverlay  = document.getElementById('fade_overlay');
 const mainSite     = document.getElementById('main_site');
 
-setTimeout(() => {
-    fadeOverlay.classList.add('active');
-}, 5000);
-
-setTimeout(() => {
+function skipIntro() {
+    clearTimeout(introScreen._t1);
+    clearTimeout(introScreen._t2);
+    clearTimeout(introScreen._t3);
     introScreen.style.display = 'none';
-    mainSite.classList.remove('hidden');
-    mainSite.classList.add('fading_in');
-
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            mainSite.classList.add('visible');
-            fadeOverlay.classList.remove('active');
-        });
-    });
-}, 6000);
-
-setTimeout(() => {
+    fadeOverlay.classList.remove('active');
     fadeOverlay.style.display = 'none';
-    mainSite.classList.remove('fading_in');
-}, 7000);
+    mainSite.classList.remove('hidden', 'fading_in');
+    mainSite.classList.add('visible');
+    introScreen._skipped = true;
+    setTimeout(() => swiper.update(), 100);
+}
+
+if (sessionStorage.getItem('skipIntro')) {
+    sessionStorage.removeItem('skipIntro');
+    skipIntro();
+} else {
+    introScreen.addEventListener('click', skipIntro, { once: true });
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' || e.code === 'Enter') {
+            e.preventDefault();
+            skipIntro();
+        }
+    }, { once: true });
+
+    introScreen._t1 = setTimeout(() => {
+        if (introScreen._skipped) return;
+        fadeOverlay.classList.add('active');
+    }, 12000);
+
+    introScreen._t2 = setTimeout(() => {
+        if (introScreen._skipped) return;
+        introScreen.style.display = 'none';
+        mainSite.classList.remove('hidden');
+        mainSite.classList.add('fading_in');
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                mainSite.classList.add('visible');
+                fadeOverlay.classList.remove('active');
+            });
+        });
+    }, 13000);
+
+    introScreen._t3 = setTimeout(() => {
+        if (introScreen._skipped) return;
+        fadeOverlay.style.display = 'none';
+        mainSite.classList.remove('fading_in');
+        swiper.update();
+    }, 14000);
+}
 
 const cartList        = document.querySelector('.cart_list');
 const cartEmpty       = document.querySelector('.cart_empty');
@@ -476,29 +508,38 @@ checkoutBtn.addEventListener('click', () => {
         return;
     }
 
-    runCheckoutAnimation();
+    const orders = cart.map(item => ({
+        name: item.name,
+        colour: item.colour || '—',
+        size: item.size || '—',
+        gender: item.gender || '—',
+        image_url: window.location.origin + '/' + getProductImage(item.productId, item.gender, item.colour),
+    }));
+
+    const params = {
+        orders: orders,
+        name: cartForm.querySelector('[name="name"]').value,
+        email: cartForm.querySelector('[name="email"]').value,
+        phone: phoneInput.value,
+        country: countryInput.value,
+        city: cartForm.querySelector('[name="city"]').value,
+        delivery: deliverySelect.options[deliverySelect.selectedIndex].text,
+        address: cartForm.querySelector('[name="address"]').value || '—',
+    };
+
+    emailjs.send('service_pwzlbvm', 'template_ajjn1a4', params)
+        .then(() => {
+            runCheckoutAnimation();
+        })
+        .catch((err) => {
+            console.error('EmailJS error:', err);
+            runCheckoutAnimation();
+        });
 });
 
 handleRefresh.addEventListener('click', () => {
-    successPopup.classList.add('hidden');
-    closeCart();
-    cart.length = 0;
-    wasEverFilled = false;
-    cartForm.reset();
-    cartForm.querySelectorAll('input').forEach(input => {
-        input.value = '';
-    });
-    countryInput.value = 'Россия';
-    updateDeliveryOptions();
-    phoneInput.value = '+7';
-    addressLabel.textContent = 'Адрес';
-    addressField.classList.remove('hidden');
-    addressField.querySelector('input').required = true;
-    deliverySelect.value = '';
-    sessionStorage.clear();
-    renderCart();
-    buildSwiperSlides();
-    swiper.update();
+    sessionStorage.setItem('skipIntro', 'true');
+    location.reload();
 });
 
 const cookieNotice  = document.querySelector('.cookie_notice');

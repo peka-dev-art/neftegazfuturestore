@@ -263,40 +263,59 @@ main {
     z-index: 2;
 }
 
-.intro_crawl p {
-    font-family: 'Tiny5', sans-serif;
+.intro_crawl_text {
+    width: calc(100% - 30px);
+    margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.intro_part {
+    font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 48px;
     color: #fff;
     text-align: justify;
-    width: calc(100% - 30px);
-    max-width: none;
-    margin: 0 15px;
+    margin: 0;
     padding: 0;
-    animation: retroIntro 5s ease-out forwards;
+    opacity: 0;
+    animation: retroPart 5s ease-out forwards;
 }
 
-@keyframes retroIntro {
-    0%   { opacity: 0; transform: translateY(-40px); }
-    15%  { opacity: 1; transform: translateY(0); }
-    75%  { opacity: 1; transform: translateY(10px); }
-    100% { opacity: 0; transform: translateY(60px); }
+.intro_p1 { animation-delay: 0s; }
+.intro_p2 { animation-delay: 2.3s; }
+.intro_p3 { animation-delay: 4.6s; }
+.intro_p4 { animation-delay: 6.9s; }
+.intro_p5 { animation-delay: 9.2s; }
+
+@keyframes retroPart {
+    0%   { opacity: 0; transform: translateY(-30px); }
+    11%  { opacity: 1; transform: translateY(0); }
+    60%  { opacity: 1; transform: translateY(5px); }
+    100% { opacity: 0; transform: translateY(40px); }
 }
 
 .article_row {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 2rem;
-    max-width: 1440px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 2rem;
 }
 
 article {
-    flex: 1;
-    text-align: justify;
-    font-family: 'Stalinist One', cursive;
-    font-weight: 400;
+    display: none;
+}
+
+.article_alt_heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #333;
+    margin: 0;
 }
 
 .article_pic {
