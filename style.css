@@ -943,3 +943,154 @@ article {
     font-size: 20px;
     color: #000;
 }
+
+@media (max-width: 1180px) {
+
+    .intro_crawl_text {
+        width: calc(100% - 20px);
+        margin: 0 10px;
+        gap: 1.2rem;
+    }
+
+    .intro_part {
+        font-size: 18px;
+    }
+
+    .hero_banner {
+        display: none;
+    }
+
+    .running_title {
+        height: 45px;
+        position: sticky;
+        top: 0;
+        z-index: 1010;
+    }
+
+    .running_title.hidden {
+        display: flex;
+    }
+
+    .running_title_track {
+        animation: runningMarquee 20s linear infinite;
+    }
+
+    .running_title_track span {
+        font-size: 24px;
+        line-height: 45px;
+    }
+
+    .cart {
+        width: 100vw;
+        max-width: 100vw;
+        top: 45px;
+        height: calc(100vh - 45px);
+        padding: 1rem;
+    }
+
+    article {
+        display: none;
+    }
+
+    .article_alt_heading {
+        font-size: 1.2rem;
+        flex: 1;
+    }
+
+    .article_pic img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .product_list {
+        width: 100%;
+        max-width: 100%;
+        margin: 1.5rem auto auto auto;
+    }
+
+    .product_card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .cart {
+        width: 100vw;
+        max-width: 100vw;
+        padding: 1rem;
+        z-index: 999;
+    }
+
+    .cart_list li img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cart_toggle {
+        right: 20px;
+        bottom: 42px;
+        width: 75px;
+        height: 75px;
+    }
+
+    .cart_toggle_icon {
+        font-size: 48px;
+    }
+
+    .cookie_notice {
+        bottom: 40px;
+        left: 12px;
+        max-width: 260px;
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+        height: 75px;
+    }
+
+    .cookie_notice p {
+        font-size: 0.8rem;
+    }
+
+    .cookie_dismiss {
+        width: 40px;
+        height: 40px;
+    }
+
+    .cookie_dismiss .material-symbols-outlined {
+        font-size: 18px;
+    }
+
+    .toast {
+        top: 40px;
+        right: 12px;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 0.65rem;
+        padding: 4px 0;
+        background: transparent;
+        color: #888;
+        z-index: 100;
+    }
+
+    .footer p:first-child,
+    .footer p:last-child {
+        display: none;
+    }
+
+    .cart_toggle.cart_open {
+        width: 45px;
+        height: 45px;
+        right: 12px;
+        bottom: 12px;
+    }
+
+    .cart_toggle.cart_open .cart_toggle_icon {
+        font-size: 22px;
+    }
+}

@@ -474,14 +474,24 @@ const cartBackdrop = document.querySelector('.cart_backdrop');
 
 function openCart() {
     cartOverlay.classList.remove('hidden');
+    cartToggle.classList.add('cart_open');
+    if (window.innerWidth <= 874) cartToggleIcon.textContent = 'keyboard_arrow_left';
 }
 
 function closeCart() {
     cartOverlay.classList.add('hidden');
+    cartToggle.classList.remove('cart_open');
+    updateCartIcon();
 }
 
 function toggleCart() {
     cartOverlay.classList.toggle('hidden');
+    const isOpen = !cartOverlay.classList.contains('hidden');
+    cartToggle.classList.toggle('cart_open', isOpen);
+    if (window.innerWidth <= 874) {
+        cartToggleIcon.textContent = isOpen ? 'keyboard_arrow_left' : 'shopping_cart';
+        if (!isOpen) updateCartIcon();
+    }
 }
 
 cartToggle.addEventListener('click', toggleCart);
@@ -555,12 +565,6 @@ setTimeout(dismissCookie, 7000);
 
 const runningTitle = document.getElementById('running_title');
 const heroBanner   = document.getElementById('hero_banner');
-
-window.addEventListener('scroll', () => {
-    const isSticky = window.scrollY >= 275;
-    runningTitle.classList.toggle('hidden', !isSticky);
-    heroBanner.classList.toggle('hidden', isSticky);
-});
 
 document.querySelector('.size_chart_link').addEventListener('click', (e) => {
     e.preventDefault();
