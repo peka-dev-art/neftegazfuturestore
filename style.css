@@ -949,8 +949,8 @@ article {
 }
 
 .footer_bottom {
-    text-align: right;
-    font-size: 0.65rem;
+    text-align: center;
+    font-size: 0.8rem;
     color: #555;
     line-height: 1.6;
 }
@@ -1109,21 +1109,16 @@ article {
     }
 
     .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
         text-align: center;
-        font-size: 0.65rem;
-        padding: 4px 0;
+        font-size: 0.75rem;
+        padding: 1rem 0 0.5rem;
         background: transparent;
-        color: #888;
+        color: #fff;
         z-index: 100;
+        position: static;
     }
 
-    .footer_top,
-    .footer_bottom p:first-child,
-    .footer_bottom p:last-child {
+    .footer_top {
         display: none;
     }
 
@@ -1132,10 +1127,34 @@ article {
     }
 
     .footer_bottom p {
-        font-size: 0.65rem;
-        color: #888;
+        font-size: 0.8rem;
+        color: #fff;
+        margin: 2px 0;
     }
 
+    .bg-icon { opacity: 0.06; }
+    .bg-icon.i1  { font-size: 40px; top: 2%; left: 2%; }
+    .bg-icon.i2  { font-size: 50px; top: 2%; left: 26%; }
+    .bg-icon.i3  { font-size: 35px; top: 2%; left: 52%; }
+    .bg-icon.i4  { font-size: 45px; top: 2%; left: 76%; }
+    .bg-icon.i5  { font-size: 55px; top: 18%; left: 5%; }
+    .bg-icon.i6  { font-size: 38px; top: 18%; left: 32%; }
+    .bg-icon.i7  { font-size: 48px; top: 18%; left: 58%; }
+    .bg-icon.i8  { font-size: 42px; top: 18%; left: 82%; }
+    .bg-icon.i9  { font-size: 36px; top: 34%; left: 3%; }
+    .bg-icon.i10 { font-size: 52px; top: 34%; left: 28%; }
+    .bg-icon.i11 { font-size: 40px; top: 34%; left: 54%; }
+    .bg-icon.i12 { font-size: 46px; top: 34%; left: 78%; }
+    .bg-icon.i13 { font-size: 50px; top: 50%; left: 6%; }
+    .bg-icon.i14 { font-size: 34px; top: 50%; left: 30%; }
+    .bg-icon.i15 { font-size: 44px; top: 50%; left: 56%; }
+    .bg-icon.i16 { font-size: 38px; top: 50%; left: 80%; }
+    .bg-icon.i17 { font-size: 48px; top: 66%; left: 4%; }
+    .bg-icon.i18 { font-size: 42px; top: 66%; left: 32%; }
+    .bg-icon.i19 { font-size: 36px; top: 66%; left: 60%; }
+    .bg-icon.i20 { font-size: 50px; top: 66%; left: 84%; }
+
+}
     .cart_toggle.cart_open {
         width: 45px;
         height: 45px;
