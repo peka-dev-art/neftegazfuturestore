@@ -23,31 +23,40 @@ main {
 .bg-icon {
     position: absolute;
     pointer-events: none;
-    color: #999;
-    opacity: 0.08;
+    color: #888;
+    opacity: 0;
     z-index: 0;
+    animation: iconGlow 4s ease-in-out infinite;
 }
 
-.bg-icon.i1  { font-size: 80px; top: 5%; left: 3%; }
-.bg-icon.i2  { font-size: 120px; top: 12%; right: 8%; }
-.bg-icon.i3  { font-size: 60px; top: 30%; left: 15%; }
-.bg-icon.i4  { font-size: 100px; top: 45%; right: 5%; }
-.bg-icon.i5  { font-size: 70px; top: 55%; left: 8%; }
-.bg-icon.i6  { font-size: 90px; top: 70%; right: 12%; }
-.bg-icon.i7  { font-size: 110px; top: 80%; left: 20%; }
-.bg-icon.i8  { font-size: 50px; top: 8%; left: 50%; }
-.bg-icon.i9  { font-size: 85px; top: 20%; right: 25%; }
-.bg-icon.i10 { font-size: 130px; top: 35%; left: 60%; }
-.bg-icon.i11 { font-size: 55px; top: 50%; left: 40%; }
-.bg-icon.i12 { font-size: 95px; top: 65%; right: 30%; }
-.bg-icon.i13 { font-size: 75px; top: 78%; left: 70%; }
-.bg-icon.i14 { font-size: 105px; top: 15%; left: 85%; }
-.bg-icon.i15 { font-size: 65px; top: 42%; right: 50%; }
-.bg-icon.i16 { font-size: 115px; top: 58%; left: 30%; }
-.bg-icon.i17 { font-size: 45px; top: 25%; left: 35%; }
-.bg-icon.i18 { font-size: 88px; top: 72%; left: 55%; }
-.bg-icon.i19 { font-size: 72px; top: 90%; right: 15%; }
-.bg-icon.i20 { font-size: 98px; top: 3%; right: 40%; }
+@keyframes iconGlow {
+    0%   { opacity: 0; }
+    20%  { opacity: 0.08; }
+    50%  { opacity: 0.06; }
+    80%  { opacity: 0.08; }
+    100% { opacity: 0; }
+}
+
+.bg-icon.i1  { font-size: 50px; top: 8%; left: 5%; }
+.bg-icon.i2  { font-size: 30px; top: 15%; left: 25%; }
+.bg-icon.i3  { font-size: 60px; top: 5%; left: 50%; }
+.bg-icon.i4  { font-size: 35px; top: 20%; left: 70%; }
+.bg-icon.i5  { font-size: 45px; top: 10%; left: 88%; }
+.bg-icon.i6  { font-size: 55px; top: 60%; left: 8%; }
+.bg-icon.i7  { font-size: 40px; top: 70%; left: 28%; }
+.bg-icon.i8  { font-size: 65px; top: 55%; left: 52%; }
+.bg-icon.i9  { font-size: 35px; top: 75%; left: 72%; }
+.bg-icon.i10 { font-size: 50px; top: 65%; left: 90%; }
+.bg-icon.i11 { font-size: 70px; top: 35%; left: 3%; }
+.bg-icon.i12 { font-size: 45px; top: 40%; left: 22%; }
+.bg-icon.i13 { font-size: 55px; top: 30%; left: 48%; }
+.bg-icon.i14 { font-size: 40px; top: 45%; left: 68%; }
+.bg-icon.i15 { font-size: 60px; top: 38%; left: 85%; }
+.bg-icon.i16 { font-size: 50px; top: 80%; left: 15%; }
+.bg-icon.i17 { font-size: 35px; top: 85%; left: 40%; }
+.bg-icon.i18 { font-size: 55px; top: 78%; left: 65%; }
+.bg-icon.i19 { font-size: 45px; top: 90%; left: 82%; }
+.bg-icon.i20 { font-size: 60px; top: 22%; left: 58%; }
 
 .running_title {
     position: sticky;
@@ -1358,11 +1367,19 @@ article {
 
     .swiper-button-prev,
     .swiper-button-next {
-        display: flex;
+        display: none;
     }
 
     .swiper-pagination {
-        display: block;
+        display: none;
+    }
+
+    .product_card.dissolving {
+        animation: none;
+    }
+
+    .product_card.dissolving::after {
+        display: none;
     }
 
     .footer {
@@ -1405,26 +1422,15 @@ article {
         margin-top: 4px;
     }
 
-    .bg-icon { opacity: 0.06; }
-    .bg-icon.i1  { font-size: 40px; top: 2%; left: 2%; }
-    .bg-icon.i2  { font-size: 50px; top: 2%; left: 26%; }
-    .bg-icon.i3  { font-size: 35px; top: 2%; left: 52%; }
-    .bg-icon.i4  { font-size: 45px; top: 2%; left: 76%; }
-    .bg-icon.i5  { font-size: 55px; top: 18%; left: 5%; }
-    .bg-icon.i6  { font-size: 38px; top: 18%; left: 32%; }
-    .bg-icon.i7  { font-size: 48px; top: 18%; left: 58%; }
-    .bg-icon.i8  { font-size: 42px; top: 18%; left: 82%; }
-    .bg-icon.i9  { font-size: 36px; top: 34%; left: 3%; }
-    .bg-icon.i10 { font-size: 52px; top: 34%; left: 28%; }
-    .bg-icon.i11 { font-size: 40px; top: 34%; left: 54%; }
-    .bg-icon.i12 { font-size: 46px; top: 34%; left: 78%; }
-    .bg-icon.i13 { font-size: 50px; top: 50%; left: 6%; }
-    .bg-icon.i14 { font-size: 34px; top: 50%; left: 30%; }
-    .bg-icon.i15 { font-size: 44px; top: 50%; left: 56%; }
-    .bg-icon.i16 { font-size: 38px; top: 50%; left: 80%; }
-    .bg-icon.i17 { font-size: 48px; top: 66%; left: 4%; }
-    .bg-icon.i18 { font-size: 42px; top: 66%; left: 32%; }
-    .bg-icon.i19 { font-size: 36px; top: 66%; left: 60%; }
-    .bg-icon.i20 { font-size: 50px; top: 66%; left: 84%; }
+    .desktop_tapes {
+        display: none;
+    }
 
+    .bg-icon,
+    .bg-icon.i1, .bg-icon.i2, .bg-icon.i3, .bg-icon.i4, .bg-icon.i5,
+    .bg-icon.i6, .bg-icon.i7, .bg-icon.i8, .bg-icon.i9, .bg-icon.i10,
+    .bg-icon.i11, .bg-icon.i12, .bg-icon.i13, .bg-icon.i14, .bg-icon.i15,
+    .bg-icon.i16, .bg-icon.i17, .bg-icon.i18, .bg-icon.i19, .bg-icon.i20 {
+        display: none !important;
+    }
 }

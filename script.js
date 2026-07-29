@@ -160,6 +160,20 @@ if (sessionStorage.getItem('skipIntro')) {
     }, 12000);
 }
 
+function shuffleIcons() {
+    document.querySelectorAll('.bg-icon').forEach(icon => {
+        icon.style.animation = 'none';
+        icon.offsetHeight;
+        icon.style.top = (Math.random() * 90) + '%';
+        icon.style.left = (Math.random() * 90) + '%';
+        icon.style.fontSize = (30 + Math.random() * 50) + 'px';
+        icon.style.animation = 'iconGlow 4s ease-in-out infinite';
+    });
+}
+
+shuffleIcons();
+setInterval(shuffleIcons, 4000);
+
 const cartList        = document.querySelector('.cart_list');
 const cartEmpty       = document.querySelector('.cart_empty');
 const cartForm        = document.querySelector('.cart_form');
@@ -435,13 +449,15 @@ document.querySelectorAll('.product_card').forEach(card => {
         const id = card.dataset.id;
         const p = products[id];
 
-        card.classList.add('dissolving');
+        if (window.innerWidth > 1180) {
+            card.classList.add('dissolving');
 
-        card.addEventListener('animationend', () => {
-            card.classList.remove('dissolving');
-            card.classList.add('removed');
-            setTimeout(() => card.remove(), 500);
-        }, { once: true });
+            card.addEventListener('animationend', () => {
+                card.classList.remove('dissolving');
+                card.classList.add('removed');
+                setTimeout(() => card.remove(), 500);
+            }, { once: true });
+        }
 
         cart.push({
             productId: id,
@@ -515,21 +531,21 @@ const cartBackdrop = document.querySelector('.cart_backdrop');
 function openCart() {
     cartOverlay.classList.remove('hidden');
     cartToggle.classList.add('cart_open');
-    if (window.innerWidth <= 874) cartToggleIcon.textContent = 'keyboard_arrow_left';
+    if (window.innerWidth <= 1180) cartToggleIcon.textContent = 'arrow_back';
 }
 
 function closeCart() {
     cartOverlay.classList.add('hidden');
     cartToggle.classList.remove('cart_open');
-    updateCartIcon();
+    if (window.innerWidth <= 1180) updateCartIcon();
 }
 
 function toggleCart() {
     cartOverlay.classList.toggle('hidden');
     const isOpen = !cartOverlay.classList.contains('hidden');
     cartToggle.classList.toggle('cart_open', isOpen);
-    if (window.innerWidth <= 874) {
-        cartToggleIcon.textContent = isOpen ? 'keyboard_arrow_left' : 'shopping_cart';
+    if (window.innerWidth <= 1180) {
+        cartToggleIcon.textContent = isOpen ? 'arrow_back' : 'shopping_cart';
         if (!isOpen) updateCartIcon();
     }
 }
