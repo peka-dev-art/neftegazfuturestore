@@ -108,33 +108,6 @@ main {
     animation: warpSpin 20s linear infinite;
 }
 
-.intro_screen::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(2px 6px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
-        radial-gradient(2px 5px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(2px 6px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
-        radial-gradient(2px 5px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(2px 6px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
-        radial-gradient(2px 5px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(2px 6px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
-        radial-gradient(2px 5px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(100px 100px at 20% 30%, rgba(30,80,200,0.15), transparent),
-        radial-gradient(150px 150px at 70% 60%, rgba(30,80,200,0.1), transparent),
-        radial-gradient(80px 80px at 50% 50%, rgba(30,80,220,0.12), transparent);
-    animation: warpStars 0.8s linear infinite;
-}
-
 .fade_overlay {
     position: fixed;
     inset: 0;
@@ -201,41 +174,6 @@ main {
     100% { transform: rotate(360deg) scale(1.3); }
 }
 
-.hero_banner::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(2px 6px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
-        radial-gradient(2px 5px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(2px 6px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
-        radial-gradient(2px 5px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(2px 6px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
-        radial-gradient(2px 5px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(2px 6px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 4px at 50% 50%, #ccf, transparent),
-        radial-gradient(2px 5px at 50% 50%, #fff, transparent),
-        radial-gradient(1px 3px at 50% 50%, #aaf, transparent),
-        radial-gradient(100px 100px at 20% 30%, rgba(30,80,200,0.15), transparent),
-        radial-gradient(150px 150px at 70% 60%, rgba(30,80,200,0.1), transparent),
-        radial-gradient(80px 80px at 50% 50%, rgba(30,80,220,0.12), transparent);
-    animation: warpStars 0.8s linear infinite;
-}
-
-@keyframes warpStars {
-    0%   { transform: scale(1) translate(0, 0); opacity: 0.6; }
-    25%  { transform: scale(1.5) translate(2%, -1%); }
-    50%  { transform: scale(2.2) translate(1%, 1%); opacity: 1; }
-    75%  { transform: scale(3) translate(-1%, 0.5%); }
-    100% { transform: scale(4) translate(0, -0.5%); opacity: 0.3; }
-}
-
 .hero_banner span {
     position: relative;
     z-index: 1;
@@ -268,32 +206,59 @@ main {
     margin: 0 15px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 200px;
 }
 
 .intro_part {
     font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 48px;
     color: #fff;
-    text-align: justify;
+    text-align: center;
     margin: 0;
     padding: 0;
     opacity: 0;
-    animation: retroPart 5s ease-out forwards;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: retroSlide 2s ease-out forwards;
+}
+
+.intro_skip {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10;
+    font-family: 'Tiny5', sans-serif;
+    font-size: 18px;
+    color: #fff;
+    background: #000;
+    border: 2px solid #444;
+    padding: 8px 20px;
+    cursor: pointer;
+    image-rendering: pixelated;
+    transition: background 0.2s;
+}
+
+.intro_skip:hover {
+    background: #222;
 }
 
 .intro_p1 { animation-delay: 0s; }
-.intro_p2 { animation-delay: 2.3s; }
-.intro_p3 { animation-delay: 4.6s; }
-.intro_p4 { animation-delay: 6.9s; }
-.intro_p5 { animation-delay: 9.2s; }
+.intro_p2 { animation-delay: 2s; }
+.intro_p3 { animation-delay: 4s; }
+.intro_p4 { animation-delay: 6s; }
+.intro_p5 { animation-delay: 8s; }
 
-@keyframes retroPart {
-    0%   { opacity: 0; transform: translateY(-30px); }
-    11%  { opacity: 1; transform: translateY(0); }
-    60%  { opacity: 1; transform: translateY(5px); }
-    100% { opacity: 0; transform: translateY(40px); }
+@keyframes retroSlide {
+    0%   { opacity: 0; transform: translateY(-50%) translateY(30px); }
+    15%  { opacity: 1; transform: translateY(-50%) translateY(0); }
+    75%  { opacity: 1; transform: translateY(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateY(-50%) translateY(-20px); }
 }
 
 .article_row {
@@ -383,14 +348,126 @@ article {
 
 .swiper_section {
     background: #c6c6c6;
-    padding: 1px 0;
+    padding: 0;
+    position: relative;
+    overflow: visible;
+    transition: background 0.4s ease;
+}
+
+.swiper_section:has(.product_card:hover) {
+    background:
+        radial-gradient(ellipse at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255,255,255,0.5) 0%, transparent 60%),
+        #c6c6c6;
+}
+
+.product_grid {
+    overflow: hidden;
+    position: relative;
+}
+
+.scroll_row {
+    overflow: visible;
+    margin: 0;
+    padding: 2rem 0;
+}
+
+.scroll_track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+}
+
+.scroll_row_top .scroll_track {
+    animation: scrollLeft 30s linear infinite;
+}
+
+.scroll_row_bottom .scroll_track {
+    animation: scrollRight 30s linear infinite;
+}
+
+.scroll_row:has(.product_card:hover) .scroll_track {
+    animation-play-state: paused;
+}
+
+@keyframes scrollLeft {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-33.33%); }
+}
+
+@keyframes scrollRight {
+    0%   { transform: translateX(-33.33%); }
+    100% { transform: translateX(0); }
+}
+
+.scroll_track .product_card {
+    flex-shrink: 0;
+    width: 400px;
+    transition: width 0.5s ease, opacity 0.5s ease, margin 0.5s ease;
+}
+
+.scroll_track .product_card img {
+    width: 400px;
+    height: 400px;
+}
+
+.product_card.dissolving {
+    animation: pixelBomb 0.6s ease-out forwards;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+.product_card.dissolving img {
+    animation: pixelImg 0.6s ease-out forwards;
+}
+
+.product_card.dissolving::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    background: transparent;
+    box-shadow:
+        4px 8px 0 #fff, 20px 15px 0 #ccc, 35px 5px 0 #fff, 50px 20px 0 #ddd,
+        8px 25px 0 #eee, 30px 35px 0 #fff, 55px 10px 0 #ccc, 15px 40px 0 #fff,
+        45px 30px 0 #ddd, 60px 5px 0 #eee, 5px 15px 0 #ccc, 40px 25px 0 #fff,
+        -10px 10px 0 #ddd, -20px 30px 0 #fff, -5px 45px 0 #ccc, -30px 15px 0 #eee,
+        70px 35px 0 #fff, 25px 50px 0 #ccc, 55px 45px 0 #ddd, 10px 55px 0 #fff;
+    animation: fragmentBomb 0.6s ease-out forwards;
+    border-radius: 8px;
+}
+
+.product_card.removed {
+    width: 0;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+@keyframes pixelBomb {
+    0%   { transform: scale(1); }
+    15%  { transform: scale(1.15) rotate(3deg); }
+    30%  { transform: scale(0.9) rotate(-2deg); }
+    50%  { transform: scale(1.05) rotate(1deg); }
+    70%  { transform: scale(0.3) rotate(-5deg); }
+    100% { transform: scale(0) rotate(10deg); opacity: 0; }
+}
+
+@keyframes pixelImg {
+    0%   { filter: none; }
+    30%  { filter: contrast(2) brightness(3); }
+    70%  { filter: contrast(3) blur(2px); }
+    100% { filter: blur(6px) brightness(4); opacity: 0; }
+}
+
+@keyframes fragmentBomb {
+    0%   { transform: scale(0); opacity: 0; }
+    20%  { transform: scale(0.5); opacity: 1; }
+    50%  { transform: scale(1.5); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
 }
 
 .product_list {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 2rem 3rem;
+    display: none;
 }
 
 .swiper-slide {
@@ -408,21 +485,25 @@ article {
     border-radius: 8px;
     background: #fff;
     position: relative;
-    z-index: 1;
-    width: 100%;
-    transition: box-shadow 0.4s ease, transform 0.4s ease;
+    isolation: isolate;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, z-index 0s;
 }
 
 .product_card:hover {
-    z-index: 10;
+    z-index: 999;
     transform: scale(1.08);
+    border-radius: 0;
+    --hl: var(--highlight, #fff);
     box-shadow:
-        0 0 20px rgba(255, 255, 255, 1),
-        0 0 40px rgba(255, 255, 255, 0.9),
-        0 0 80px rgba(255, 255, 255, 0.7),
-        0 0 120px rgba(255, 255, 255, 0.5),
-        0 0 200px rgba(255, 255, 255, 0.3),
-        0 0 30px rgba(255, 255, 255, 1) inset;
+        8px 0 0 var(--hl), -8px 0 0 var(--hl), 0 8px 0 var(--hl), 0 -8px 0 var(--hl),
+        6px 6px 0 var(--hl), -6px 6px 0 var(--hl), 6px -6px 0 var(--hl), -6px -6px 0 var(--hl),
+        12px 0 0 #000, -12px 0 0 #000, 0 12px 0 #000, 0 -12px 0 #000,
+        9px 9px 0 #000, -9px 9px 0 #000, 9px -9px 0 #000, -9px -9px 0 #000;
+}
+
+.product_card.dissolving:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 .product_card img {
@@ -437,12 +518,9 @@ article {
 }
 
 .swiper-button-prev,
-.swiper-button-next {
-    color: #111;
-}
-
-.swiper-pagination-bullet-active {
-    background: #111;
+.swiper-button-next,
+.swiper-pagination {
+    display: none;
 }
 
 .cart_overlay {
@@ -966,15 +1044,32 @@ article {
 
 .footer {
     background: #fff;
-    padding: 2rem 2rem 1rem;
+    padding: 2rem;
     margin-top: 0;
 }
 
-.footer_top {
+.footer_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer_cell {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 2rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.footer_cell:nth-child(2),
+.footer_cell:nth-child(5) {
+    justify-content: center;
+}
+
+.footer_cell:nth-child(3),
+.footer_cell:nth-child(6) {
+    justify-content: flex-end;
 }
 
 .footer_brand {
@@ -1008,18 +1103,7 @@ article {
     color: #000;
 }
 
-.footer_bottom {
-    text-align: center;
-    font-size: 0.8rem;
-    color: #000;
-    line-height: 1.6;
-}
-
-.footer_bottom p {
-    margin: 0;
-}
-
-.footer_bottom p:last-child {
+.footer_link_mobile {
     display: none;
 }
 
@@ -1195,7 +1279,12 @@ article {
         padding: 1px 0;
     }
 
+    .product_grid {
+        display: none;
+    }
+
     .product_list {
+        display: block;
         width: 100%;
         max-width: 100%;
         margin: 0 auto;
@@ -1267,9 +1356,12 @@ article {
     }
 
     .swiper-button-prev,
-    .swiper-button-next,
+    .swiper-button-next {
+        display: flex;
+    }
+
     .swiper-pagination {
-        display: none;
+        display: block;
     }
 
     .footer {
@@ -1282,23 +1374,33 @@ article {
         position: static;
     }
 
-    .footer_top {
+    .footer_grid {
+        display: block;
+    }
+
+    .footer_cell {
         display: none;
+        justify-content: center;
     }
 
-    .footer_bottom {
-        text-align: center;
+    .footer_cell:nth-child(5) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .footer_bottom p {
+    .footer_cell p {
         font-size: 0.8rem;
         color: #000;
         margin: 2px 0;
     }
 
-    .footer_bottom p:first-child,
-    .footer_bottom p:last-child {
-        display: none;
+    .footer_link_mobile {
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.75rem;
+        color: #555;
+        text-decoration: none;
+        margin-top: 4px;
     }
 
     .bg-icon { opacity: 0.06; }

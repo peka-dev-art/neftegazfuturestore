@@ -28,6 +28,7 @@
                 <p class="intro_part intro_p5">Добро пожаловать в магазин НЕФТЕГАЗ#БУДУЩЕЕ – первый магазин качественного мерча, созданного нефтяниками для нефтяников!</p>
             </div>
         </div>
+        <button class="intro_skip" id="intro_skip">Пропустить</button>
     </div>
 
     <div class="fade_overlay" id="fade_overlay"></div>
@@ -87,6 +88,14 @@
             </div>
         </div>
         <div class="swiper_section">
+        <div class="product_grid" id="product_grid">
+            <div class="scroll_row scroll_row_top">
+                <div class="scroll_track" id="scroll_track_top"></div>
+            </div>
+            <div class="scroll_row scroll_row_bottom">
+                <div class="scroll_track" id="scroll_track_bottom"></div>
+            </div>
+        </div>
         <div class="product_list swiper">
             <div class="swiper-wrapper"></div>
             <div class="swiper-button-prev"></div>
@@ -160,17 +169,23 @@
             </aside>
         </div>
         <footer class="footer">
-            <div class="footer_top">
-                <div class="footer_brand">
-                    <img src="assets/logo.jpg" alt="Logo" width="100" height="100">
-                    <span>neftegazfuturestore ltd.</span>
+            <div class="footer_grid">
+                <div class="footer_cell">
+                    <div class="footer_brand">
+                        <img src="assets/logo.jpg" alt="Logo" width="100" height="100">
+                        <span>neftegazfuturestore ltd.</span>
+                    </div>
                 </div>
-                <a class="footer_link" href="https://ingenix-group.ru" target="_blank" rel="noopener">Об Ingenix Group</a>
-            </div>
-            <div class="footer_bottom">
-                <p>Print design, patch design, logos by Ingenix group</p>
-                <p>peka-dev-art - website designed and built in 2026</p>
-                <p>font designed by Alexey Maslov, Jovanny Lemonad</p>
+                <div class="footer_cell"></div>
+                <div class="footer_cell">
+                    <a class="footer_link" href="https://ingenix-group.ru" target="_blank" rel="noopener">Об Ingenix Group</a>
+                </div>
+                <div class="footer_cell"></div>
+                <div class="footer_cell">
+                    <p>peka-dev-art - website designed and built in 2026</p>
+                    <a class="footer_link_mobile" href="https://ingenix-group.ru" target="_blank" rel="noopener">Об Ingenix Group</a>
+                </div>
+                <div class="footer_cell"></div>
             </div>
         </footer>
         </div>

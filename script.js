@@ -34,7 +34,13 @@ function pickRandom(arr) {
 
 function buildSwiperSlides() {
     const wrapper = document.querySelector('.product_list .swiper-wrapper');
+    const trackTop = document.getElementById('scroll_track_top');
+    const trackBottom = document.getElementById('scroll_track_bottom');
     wrapper.innerHTML = '';
+    if (trackTop) trackTop.innerHTML = '';
+    if (trackBottom) trackBottom.innerHTML = '';
+
+    const cards = [];
 
     Object.keys(products).forEach(id => {
         const p = products[id];
@@ -45,9 +51,23 @@ function buildSwiperSlides() {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide product_card';
         slide.dataset.id = id;
+        slide.style.setProperty('--highlight', colour === 'Белый' ? '#0044cc' : '#fff');
         slide.innerHTML = '<img src="' + imgSrc + '" alt="' + p.name + '" width="200" height="200"><span class="product_name">' + p.name + ' ' + (gender === 'Мужская' ? 'М' : 'Ж') + ' ' + colour.toLowerCase() + '</span>';
         wrapper.appendChild(slide);
+
+        const card = document.createElement('div');
+        card.className = 'product_card';
+        card.dataset.id = id;
+        card.style.setProperty('--highlight', colour === 'Белый' ? '#0044cc' : '#fff');
+        card.innerHTML = '<img src="' + imgSrc + '" alt="' + p.name + '" width="200" height="200">';
+        cards.push(card);
     });
+
+    if (trackTop && trackBottom) {
+        const doubleCards = [...cards, ...cards, ...cards];
+        doubleCards.forEach(c => trackTop.appendChild(c.cloneNode(true)));
+        doubleCards.forEach(c => trackBottom.appendChild(c.cloneNode(true)));
+    }
 }
 
 buildSwiperSlides();
@@ -56,11 +76,9 @@ const swiper = new Swiper('.product_list', {
     loop: true,
     slidesPerView: 3,
     spaceBetween: 20,
-    centeredSlides: true,
-    autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-    },
+    centeredSlides: false,
+    loop: false,
+    slidesPerView: 5,
 
     pagination: {
         el: '.swiper-pagination',
@@ -73,9 +91,9 @@ const swiper = new Swiper('.product_list', {
     },
 
     breakpoints: {
-        320:  { slidesPerView: 1 },
-        480:  { slidesPerView: 2 },
-        768:  { slidesPerView: 3 },
+        320:  { slidesPerView: 1, centeredSlides: true, loop: true },
+        480:  { slidesPerView: 2, centeredSlides: true, loop: true },
+        768:  { slidesPerView: 3, centeredSlides: true, loop: true },
     },
 });
 
@@ -110,10 +128,16 @@ if (sessionStorage.getItem('skipIntro')) {
         }
     }, { once: true });
 
+    const skipBtn = document.getElementById('intro_skip');
+    if (skipBtn) skipBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        skipIntro();
+    });
+
     introScreen._t1 = setTimeout(() => {
         if (introScreen._skipped) return;
         fadeOverlay.classList.add('active');
-    }, 12000);
+    }, 10000);
 
     introScreen._t2 = setTimeout(() => {
         if (introScreen._skipped) return;
@@ -127,14 +151,13 @@ if (sessionStorage.getItem('skipIntro')) {
                 fadeOverlay.classList.remove('active');
             });
         });
-    }, 13000);
+    }, 11000);
 
     introScreen._t3 = setTimeout(() => {
         if (introScreen._skipped) return;
         fadeOverlay.style.display = 'none';
         mainSite.classList.remove('fading_in');
-        swiper.update();
-    }, 14000);
+    }, 12000);
 }
 
 const cartList        = document.querySelector('.cart_list');
@@ -393,15 +416,32 @@ function renderCart() {
 }
 
 document.querySelectorAll('.product_card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        swiper.autoplay.stop();
+    card.addEventListener('mouseenter', (e) => {
+        if (swiper.autoplay) swiper.autoplay.stop();
     });
     card.addEventListener('mouseleave', () => {
-        swiper.autoplay.start();
+        if (swiper.autoplay) swiper.autoplay.start();
+    });
+    card.addEventListener('mousemove', (e) => {
+        const section = card.closest('.swiper_section');
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        section.style.setProperty('--glare-x', x + '%');
+        section.style.setProperty('--glare-y', y + '%');
     });
     card.addEventListener('click', () => {
         const id = card.dataset.id;
         const p = products[id];
+
+        card.classList.add('dissolving');
+
+        card.addEventListener('animationend', () => {
+            card.classList.remove('dissolving');
+            card.classList.add('removed');
+            setTimeout(() => card.remove(), 500);
+        }, { once: true });
 
         cart.push({
             productId: id,
