@@ -166,6 +166,10 @@
                         Оплата по защищенной ссылке только после подтверждения заказа менеджером.
                     </p>
                 </div>
+                <button class="text_size_toggle" type="button">
+                    <span class="material-symbols-outlined">text_increase</span>
+                    <span class="text_size_label">Увеличить размер текста</span>
+                </button>
             </aside>
         </div>
         <footer class="footer">
@@ -216,6 +220,7 @@
             <img src="assets/sizesheet.jpg" alt="Размерная сетка" width="400" height="400">
             <button class="size_chart_close" type="button">
                 <span class="material-symbols-outlined">disabled_by_default</span>
+                <span class="close_label">Убрать</span>
             </button>
         </div>
     </div>
@@ -230,6 +235,13 @@
         <button class="cookie_dismiss" type="button" aria-label="Dismiss">
             <span class="material-symbols-outlined">cookie_off</span>
         </button>
+    </div>
+
+    <div class="zoom_popup hidden" id="zoom_popup">
+        <div class="zoom_backdrop"></div>
+        <div class="zoom_card">
+            <img src="" alt="" id="zoom_img">
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

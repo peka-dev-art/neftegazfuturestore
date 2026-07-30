@@ -527,6 +527,57 @@ deliverySelect.addEventListener('change', () => {
 
 const cartOverlay  = document.querySelector('.cart_overlay');
 const cartBackdrop = document.querySelector('.cart_backdrop');
+const cartAside    = document.querySelector('.cart');
+
+const textSizeToggle = document.querySelector('.text_size_toggle');
+if (textSizeToggle) {
+    textSizeToggle.addEventListener('click', () => {
+        const icon = textSizeToggle.querySelector('.material-symbols-outlined');
+        const label = textSizeToggle.querySelector('.text_size_label');
+        const isBig = cartAside.classList.toggle('big_text');
+        icon.textContent = isBig ? 'text_decrease' : 'text_increase';
+        label.textContent = isBig ? 'Вернуть' : 'Увеличить размер текста';
+    });
+}
+
+const zoomPopup   = document.getElementById('zoom_popup');
+const zoomImg     = document.getElementById('zoom_img');
+const zoomCard    = document.querySelector('.zoom_card');
+const zoomBack    = document.querySelector('.zoom_backdrop');
+
+cartList.addEventListener('click', (e) => {
+    if (window.innerWidth > 1180) return;
+    const img = e.target.closest('img');
+    if (!img || !img.closest('.cart_list li')) return;
+
+    const isBlue = img.src.indexOf('_син_') !== -1;
+    const highlight = isBlue ? '#fff' : '#0044cc';
+
+    zoomImg.src = img.src;
+    zoomCard.style.boxShadow =
+        '8px 0 0 ' + highlight + ', -8px 0 0 ' + highlight + ', 0 8px 0 ' + highlight + ', 0 -8px 0 ' + highlight + ',' +
+        '6px 6px 0 ' + highlight + ', -6px 6px 0 ' + highlight + ', 6px -6px 0 ' + highlight + ', -6px -6px 0 ' + highlight + ',' +
+        '12px 0 0 #000, -12px 0 0 #000, 0 12px 0 #000, 0 -12px 0 #000,' +
+        '9px 9px 0 #000, -9px 9px 0 #000, 9px -9px 0 #000, -9px -9px 0 #000';
+
+    zoomCard.classList.remove('dismissing', 'reset_anim');
+    void zoomCard.offsetWidth;
+    zoomCard.classList.add('reset_anim');
+    void zoomCard.offsetWidth;
+    zoomCard.classList.remove('reset_anim');
+    zoomPopup.classList.remove('hidden');
+});
+
+function dismissZoom() {
+    zoomCard.classList.add('dismissing');
+    setTimeout(() => {
+        zoomPopup.classList.add('hidden');
+        zoomCard.classList.remove('dismissing');
+    }, 300);
+}
+
+zoomCard.addEventListener('click', dismissZoom);
+if (zoomBack) zoomBack.addEventListener('click', dismissZoom);
 
 function openCart() {
     cartOverlay.classList.remove('hidden');
@@ -624,13 +675,30 @@ const heroBanner   = document.getElementById('hero_banner');
 
 document.querySelector('.size_chart_link').addEventListener('click', (e) => {
     e.preventDefault();
-    sizeChartPopup.classList.remove('hidden');
+    if (window.innerWidth <= 1180) {
+        sizeChartPopup.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            sizeChartPopup.querySelector('.size_chart_body').classList.add('slid');
+        });
+    } else {
+        sizeChartPopup.classList.remove('hidden');
+    }
 });
 
 document.querySelector('.size_chart_backdrop').addEventListener('click', () => {
-    sizeChartPopup.classList.add('hidden');
+    if (window.innerWidth <= 1180) {
+        sizeChartPopup.querySelector('.size_chart_body').classList.remove('slid');
+        setTimeout(() => sizeChartPopup.classList.add('hidden'), 400);
+    } else {
+        sizeChartPopup.classList.add('hidden');
+    }
 });
 
 document.querySelector('.size_chart_close').addEventListener('click', () => {
-    sizeChartPopup.classList.add('hidden');
+    if (window.innerWidth <= 1180) {
+        sizeChartPopup.querySelector('.size_chart_body').classList.remove('slid');
+        setTimeout(() => sizeChartPopup.classList.add('hidden'), 400);
+    } else {
+        sizeChartPopup.classList.add('hidden');
+    }
 });
