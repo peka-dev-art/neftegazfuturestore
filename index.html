@@ -8,10 +8,7 @@
     <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200;700&family=Stalinist+One&family=Tiny5&display=swap" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rubik+Iso&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto+Slab:wght@650&family=Roboto:wght@200;700&family=Stalinist+One&family=Tiny5&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="style.css">
@@ -34,9 +31,6 @@
     <div class="fade_overlay" id="fade_overlay"></div>
 
     <div class="main_site hidden" id="main_site">
-    <header class="header">
-
-    </header>
     <main>
         <div class="running_title hidden" id="running_title">
             <div class="running_title_track">
@@ -110,34 +104,20 @@
             <div class="cart_backdrop"></div>
             <aside class="cart">
                 <h3>Корзина</h3>
-                <ul class="cart_list">
-                </ul>
+                <ul class="cart_list"></ul>
                 <p class="cart_empty">Товары не выбраны</p>
+                <div class="cart_total hidden">
+                    <span>Сумма заказа: <strong>0</strong></span>
+                    <span class="material-symbols-outlined">currency_ruble</span>
+                </div>
                 <a class="size_chart_link" href="assets/sizesheet.jpg" target="_blank">Размерная сетка</a>
                 <form class="cart_form hidden" novalidate>
-
-                    <label>
-                        <span>Имя</span>
-                        <input type="text" name="name" required autocomplete="name">
-                    </label>
-                    <label>
-                        <span>E-mail</span>
-                        <input type="email" name="email" required autocomplete="email" placeholder="customer@e-mail.ru">
-                    </label>
-                    <label>
-                        <span>Телефон</span>
-                        <input type="tel" name="phone" id="phone_input" required autocomplete="tel" placeholder="+7 (9xx) xxx - xx - xx">
-                    </label>
-                    <label>
-                        <span>Страна</span>
-                        <input type="text" name="country" id="country_input" required autocomplete="country-name" value="Россия">
-                    </label>
-                    <label>
-                        <span>Город</span>
-                        <input type="text" name="city" required autocomplete="address-level2">
-                    </label>
-                    <label>
-                        <span>Предпочитаемый способ доставки</span>
+                    <label><span>Имя</span><input type="text" name="name" required autocomplete="name"></label>
+                    <label><span>E-mail</span><input type="email" name="email" required autocomplete="email" placeholder="customer@e-mail.ru"></label>
+                    <label><span>Телефон</span><input type="tel" name="phone" id="phone_input" required autocomplete="tel" placeholder="+7 (9xx) xxx - xx - xx"></label>
+                    <label><span>Страна</span><input type="text" name="country" id="country_input" required autocomplete="country-name" value="Россия"></label>
+                    <label><span>Город</span><input type="text" name="city" required autocomplete="address-level2"></label>
+                    <label><span>Предпочитаемый способ доставки</span>
                         <select required name="delivery" id="delivery_select">
                             <option value="">Выберите способ</option>
                             <option value="pochta">Почта России</option>
@@ -147,24 +127,15 @@
                             <option value="manager">Уточнить у менеджера</option>
                         </select>
                     </label>
-                    <label id="address_field">
-                        <span id="address_label">Адрес</span>
-                        <input type="text" name="address" required autocomplete="street-address">
-                    </label>
+                    <label id="address_field"><span id="address_label">Адрес</span><input type="text" name="address" required autocomplete="street-address"></label>
                 </form>
                 <button class="cart_checkout" type="button" disabled>
                     <span class="checkout_icon_do_not material-symbols-outlined">do_not_touch</span>
                     <span class="checkout_text">Оформить заказ</span>
                 </button>
                 <div class="cart_privacy">
-                    <p>
-                        <span class="material-symbols-outlined">verified_user</span>
-                        Отправленная в форме информация будет использована исключительно в целях оформления и доставки заказа. Мы не собираем и не храним Ваши персональные данные.
-                    </p>
-                    <p>
-                        <span class="material-symbols-outlined">payment_card</span>
-                        Оплата по защищенной ссылке только после подтверждения заказа менеджером.
-                    </p>
+                    <p><span class="material-symbols-outlined">verified_user</span>Отправленная в форме информация будет использована исключительно в целях оформления и доставки заказа. Мы не собираем и не храним Ваши персональные данные.</p>
+                    <p><span class="material-symbols-outlined">payment_card</span>Оплата по защищенной ссылке только после подтверждения заказа менеджером.</p>
                 </div>
                 <button class="text_size_toggle" type="button">
                     <span class="material-symbols-outlined">text_increase</span>
@@ -180,20 +151,40 @@
                         <span>neftegazfuturestore ltd.</span>
                     </div>
                 </div>
-                <div class="footer_cell"></div>
+                <div class="footer_cell footer_links">
+                    <a class="footer_info_link" data-popup="about">О нас</a>
+                    <a class="footer_info_link" data-popup="delivery">Доставка и оплата</a>
+                    <a class="footer_info_link" data-popup="offer">Публичная оферта</a>
+                </div>
                 <div class="footer_cell">
                     <a class="footer_link" href="https://ingenix-group.ru" target="_blank" rel="noopener">Об Ingenix Group</a>
+                    <p class="footer_info_text">ООО «Индженикс Груп»<br>Адрес: 119071, г. Москва,<br>Ленинский проспект, дом 15А<br>info@ingenix-group.ru</p>
                 </div>
-                <div class="footer_cell"></div>
                 <div class="footer_cell">
                     <p>peka-dev-art - website designed and built in 2026</p>
-                    <a class="footer_link_mobile" href="https://ingenix-group.ru" target="_blank" rel="noopener">Об Ingenix Group</a>
                 </div>
-                <div class="footer_cell"></div>
             </div>
         </footer>
         </div>
     </main>
+    </div>
+
+    <div class="info_popup hidden" id="info_popup">
+        <div class="info_popup_backdrop"></div>
+        <div class="info_popup_body">
+            <p id="info_popup_text"></p>
+            <button class="info_popup_close" type="button">
+                <span class="material-symbols-outlined">disabled_by_default</span>
+                <span class="close_label">Убрать</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="zoom_popup hidden" id="zoom_popup">
+        <div class="zoom_backdrop"></div>
+        <div class="zoom_card">
+            <img src="" alt="" id="zoom_img">
+        </div>
     </div>
 
     <div class="checkout_loader hidden">
@@ -237,16 +228,8 @@
         </button>
     </div>
 
-    <div class="zoom_popup hidden" id="zoom_popup">
-        <div class="zoom_backdrop"></div>
-        <div class="zoom_card">
-            <img src="" alt="" id="zoom_img">
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
-
 </html>

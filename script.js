@@ -176,6 +176,8 @@ setInterval(shuffleIcons, 4000);
 
 const cartList        = document.querySelector('.cart_list');
 const cartEmpty       = document.querySelector('.cart_empty');
+const cartTotal       = document.querySelector('.cart_total');
+const cartTotalStrong = cartTotal ? cartTotal.querySelector('strong') : null;
 const cartForm        = document.querySelector('.cart_form');
 const checkoutBtn     = document.querySelector('.cart_checkout');
 const successPopup    = document.querySelector('.success_popup');
@@ -354,6 +356,18 @@ function updateCheckoutState() {
     }
 }
 
+function updateCartTotal() {
+    if (!cartTotal) return;
+    if (cart.length === 0) {
+        cartTotal.classList.add('hidden');
+        return;
+    }
+    cartTotal.classList.remove('hidden');
+    const total = cart.length * 2250;
+    const formatted = total.toLocaleString('ru-RU');
+    cartTotalStrong.textContent = formatted;
+}
+
 function renderCart() {
     cartList.innerHTML = '';
 
@@ -361,6 +375,7 @@ function renderCart() {
         cartEmpty.classList.remove('hidden');
         updateCheckoutState();
         updateCartIcon();
+        updateCartTotal();
         return;
     }
 
@@ -386,7 +401,14 @@ function renderCart() {
         li.innerHTML =
             '<img src="' + imgSrc + '" alt="' + item.name + '" width="100" height="100">' +
             '<div class="cart_item_main">' +
-                '<strong>' + item.name + '</strong>' +
+                '<div class="cart_item_header">' +
+                    '<strong>' + item.name + '</strong>' +
+                    '<div class="cart_price_tag">' +
+                        '<span class="material-symbols-outlined">sell</span>' +
+                        '<span class="price_num">2 250</span>' +
+                        '<span class="material-symbols-outlined">currency_ruble</span>' +
+                    '</div>' +
+                '</div>' +
                 '<div class="cart_item_info">' +
                     '<div class="cart_opt_row">' + colourBtns + '</div>' +
                     '<div class="cart_opt_row">' + sizeBtns + '</div>' +
@@ -427,6 +449,7 @@ function renderCart() {
 
     updateCheckoutState();
     updateCartIcon();
+    updateCartTotal();
 }
 
 document.querySelectorAll('.product_card').forEach(card => {
@@ -578,6 +601,46 @@ function dismissZoom() {
 
 zoomCard.addEventListener('click', dismissZoom);
 if (zoomBack) zoomBack.addEventListener('click', dismissZoom);
+
+const infoPopup = document.getElementById('info_popup');
+const infoPopupText = document.getElementById('info_popup_text');
+
+const popupTexts = {
+    about: 'Нам повезло родиться в стране, богатой на талантливых людей и природные ресурсы! Люди, ежедневно кующие славу и доблесть нефтегазовой отрасли России, заслуживают того, чтобы гордиться своим трудом и своей причастностью к общему великому делу.\n\nКоманда бренда НЕФТЕГАЗ#БУДУЩЕЕ, являясь сама частью отрасли, отобрала самые лучшие материалы и создала запоминающийся мерч «для своих» - для геологов, разработчиков, буровиков, добытчиков, строителей и экономистов.\n\nДобро пожаловать в магазин НЕФТЕГАЗ#БУДУЩЕЕ – первый магазин качественного мерча, созданного нефтяниками для нефтяников!',
+    delivery: 'Вы можете выбрать вариант доставки при оформлении, стоимость и сроки будут зависеть от компании. Варианты доставки за границу можно уточнить у менеджера после оформления заказа.\nЗаказ обрабатывается магазином в течении 3-4 дней.\n\nОплата через Ю-Кассу:\nВыберите удобный способ оплаты: банковской картой, электронными деньгами или другими доступными методами.\nВведите необходимые данные для завершения оплаты.\nПосле успешной оплаты вы получите уведомление о завершении транзакции.',
+    offer: 'Редакция Договора от 25.11.2024\nПубличная оферта и политика конфиденциальности\nДОГОВОР (ОФЕРТА) КУПЛИ-ПРОДАЖИ\n\nРоссийская Федерация, город Москва\n\nВ соответствии со статьями 435 и 437 Гражданского кодекса Российской Федерации настоящая публичная оферта является предложением неопределенному кругу лиц заключить договор купли-продажи (далее по тексту – «Договор») на нижеследующих условиях.\n\nНастоящий Договор определяет взаимоотношения между Обществом с ограниченной ответственностью «Индженикс Груп» (ООО «Индженикс Груп», ОГРН 1157746354589, ИНН 7727160384), именуемым в дальнейшем «Продавец», в лице Генерального директора Чижикова С.В., действующего на основании Устава, и физическим лицом, именуемым в дальнейшем «Покупатель», принявшим настоящее публичное предложение (оферту) о заключении Договора. При совместном упоминании Продавец и Покупатель также именуются «Стороны», а каждый по отдельности – «Сторона».\n\nПринимая данное предложение (оферту) о заключении Договора, Покупатель тем самым выражает полное и безоговорочное согласие с условиями настоящего Договора.\n\n1. ТЕРМИНЫ И ОПРЕДЕЛЕНИЯ\n\nПокупатель – физическое лицо, имеющее намерение приобрести Текстильный товар дистанционно в Интернет-магазине. Продавец – ООО «Индженикс Груп». Интернет-магазин – Telegram-бот @NeftegazFutureBot. Текстильный товар – текстильное изделие с принтом. Заказ – оформленный запрос Покупателя на покупку Товаров.\n\n2. ОБЩИЕ ПОЛОЖЕНИЯ\n\nДоговор определяет порядок онлайн-покупки Товаров. Заказывая Товар, Покупатель соглашается с условиями Договора и Политикой конфиденциальности. Продавец вправе вносить изменения в Договор.\n\n3. ОФОРМЛЕНИЕ И ВЫПОЛНЕНИЕ ЗАКАЗА\n\nПри оформлении Заказа Покупатель подтверждает согласие с условиями. Товар доставляется в выбранное Место получения. Обязательства Продавца исполнены с момента доставки. Срок хранения Заказа – 7 дней.\n\n4. ОПЛАТА ТОВАРА\n\nЦены указаны за единицу Товара с учетом НДС. Оплата в российских рублях. Плательщик – сам Покупатель. Акцепт оферты – факт полной оплаты Заказа.\n\n5. ВОЗВРАТ ТОВАРА\n\nВозврат надлежащего качества возможен в течение 7 дней. Возврат через Место получения Товара. После проверки Товара Продавец возвращает стоимость.\n\n6. ГАРАНТИИ И ОТВЕТСТВЕННОСТЬ\n\nПродавец приложит усилия для соблюдения сроков. Продавец не отвечает за ущерб от ненадлежащего использования Товара. Покупатель отвечает за достоверность данных. Стороны освобождаются при форс-мажоре.\n\n7. ПРОЧИЕ УСЛОВИЯ\n\nПрименяется законодательство РФ. Споры решаются переговорами, затем судом по месту нахождения Продавца. Договор действует с 25.11.2024.\n\nПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ\n\n1. Цель – защита персональной информации Покупателя.\n2. Собираемая информация – данные из формы Заказа.\n3. Обработка – для исполнения договорных обязательств.\n4. Защита – доступ только уполномоченным сотрудникам.\n5. Передача – партнерам для доставки, рекламодателям, госорганам по запросу.\n6. Хранение – на территории РФ.\n7. Срок хранения – до достижения цели обработки.\n8. Права Покупателя – отзыв согласия письменным уведомлением.\n9. Применимое право – законодательство РФ.'
+};
+
+document.querySelectorAll('.footer_info_link').forEach(link => {
+    link.addEventListener('click', () => {
+        const key = link.dataset.popup;
+        infoPopupText.textContent = popupTexts[key] || '';
+        infoPopup.classList.remove('hidden');
+        if (window.innerWidth <= 1180) {
+            requestAnimationFrame(() => {
+                infoPopup.querySelector('.info_popup_body').classList.add('slid');
+            });
+        }
+    });
+});
+
+document.querySelector('.info_popup_backdrop').addEventListener('click', () => {
+    if (window.innerWidth <= 1180) {
+        infoPopup.querySelector('.info_popup_body').classList.remove('slid');
+        setTimeout(() => infoPopup.classList.add('hidden'), 400);
+    } else {
+        infoPopup.classList.add('hidden');
+    }
+});
+
+document.querySelector('.info_popup_close').addEventListener('click', () => {
+    if (window.innerWidth <= 1180) {
+        infoPopup.querySelector('.info_popup_body').classList.remove('slid');
+        setTimeout(() => infoPopup.classList.add('hidden'), 400);
+    } else {
+        infoPopup.classList.add('hidden');
+    }
+});
 
 function openCart() {
     cartOverlay.classList.remove('hidden');
