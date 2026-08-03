@@ -97,8 +97,6 @@ const swiper = new Swiper('.product_list', {
     },
 });
 
-emailjs.init('-0gW1CNbKMXPdX22p');
-
 const introScreen  = document.getElementById('intro_screen');
 const fadeOverlay  = document.getElementById('fade_overlay');
 const mainSite     = document.getElementById('main_site');
@@ -707,14 +705,13 @@ checkoutBtn.addEventListener('click', () => {
         address: cartForm.querySelector('[name="address"]').value || '—',
     };
 
-    emailjs.send('service_yj5p2tg', 'template_ajjn1a4', params)
-        .then(() => {
-            runCheckoutAnimation();
-        })
-        .catch((err) => {
-            console.error('EmailJS error:', err);
-            runCheckoutAnimation();
-        });
+    fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(params),
+    })
+        .then(() => runCheckoutAnimation())
+        .catch(() => runCheckoutAnimation());
 });
 
 handleRefresh.addEventListener('click', () => {
