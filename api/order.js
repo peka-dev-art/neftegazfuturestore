@@ -1,31 +1,56 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT),
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-});
+function createTransporter() {
+  const host = process.env.SMTP_HOST;
+  const port = parseInt(process.env.SMTP_PORT);
+  const secure = process.env.SMTP_SECURE === "true";
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+
+  console.log("SMTP config:", {
+    host,
+    port,
+    secure,
+    user: user ? user.slice(0, 3) + "***" : "MISSING",
+    pass: pass ? "***" : "MISSING",
+  });
+  console.log("MAIL_FROM:", process.env.MAIL_FROM || "MISSING");
+  console.log("MAIL_TO:", process.env.MAIL_TO || "MISSING");
+
+  if (!host || !user || !pass) {
+    return { error: "Missing SMTP environment variables" };
+  }
+
+  return {
+    transporter: nodemailer.createTransport({
+      host,
+      port,
+      secure,
+      auth: { user, pass },
+    }),
+  };
+}
 
 module.exports = async (req, res) => {
-    if (req.method !== 'POST') {
-        res.status(405).json({ error: 'Method not allowed' });
-        return;
-    }
+  if (req.method !== "POST") {
+    res.status(405).json({ error: "Method not allowed" });
+    return;
+  }
 
-    const { orders, name, email, phone, country, city, delivery, address } = req.body;
+  const { orders, name, email, phone, country, city, delivery, address } =
+    req.body;
 
-    const itemsList = orders.map(o =>
+  const itemsList = orders
+    .map(
+      (o) =>
         `<tr>
             <td style="padding:8px"><img src="${o.image_url}" width="64" height="64" style="border-radius:4px"></td>
             <td style="padding:8px"><strong>${o.name}</strong><br><span style="color:#888">Цвет: ${o.colour} | Размер: ${o.size} | ${o.gender}</span></td>
-        </tr>`
-    ).join('');
+        </tr>`,
+    )
+    .join("");
 
-    const html = `
+  const html = `
         <div style="font-family:sans-serif;max-width:600px;margin:auto">
             <h2 style="border-bottom:3px solid #111;padding-bottom:8px">НЕФТЕГАЗ#БУДУЩЕЕ — Новый заказ</h2>
             <table style="width:100%;margin-bottom:16px">
@@ -42,16 +67,33 @@ module.exports = async (req, res) => {
             <p style="color:#999;font-size:12px;margin-top:24px">Заказ с сайта neftegazfuture.store</p>
         </div>`;
 
-    try {
-        await transporter.sendMail({
-            from: process.env.MAIL_FROM,
-            to: process.env.MAIL_TO,
-            subject: `НЕФТЕГАЗ#БУДУЩЕЕ — Заказ от ${name}`,
-            html,
-        });
-        res.status(200).json({ ok: true });
-    } catch (err) {
-        console.error('Send error:', err);
-        res.status(500).json({ ok: false, error: err.message });
-    }
+  const { transporter, error } = createTransporter();
+  if (error) {
+    console.error("Config error:", error);
+    res.status(500).json({ ok: false, error });
+    return;
+  }
+
+  try {
+    // Verify SMTP connection before sending
+    await transporter.verify();
+    console.log("SMTP connection verified");
+
+    const info = await transporter.sendMail({
+      from: process.env.MAIL_FROM,
+      to: process.env.MAIL_TO,
+      subject: `НЕФТЕГАЗ#БУДУЩЕЕ — Заказ от ${name}`,
+      html,
+    });
+
+    console.log("Email sent:", {
+      messageId: info.messageId,
+      accepted: info.accepted,
+      rejected: info.rejected,
+    });
+    res.status(200).json({ ok: true, messageId: info.messageId });
+  } catch (err) {
+    console.error("Send error:", err.message, err.code);
+    res.status(500).json({ ok: false, error: err.message, code: err.code });
+  }
 };
