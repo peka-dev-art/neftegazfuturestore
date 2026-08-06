@@ -6,6 +6,6 @@ Shopping cart (sidebar) – add/remove items, see total
 
 Order form (name, email, phone) with HTML5 validation
 
-EmailJS integration to send the order to marketing team
+express.js back-end server to send the order to marketing team
 
 Success popup clears the cart after submission
