@@ -1,31 +1,36 @@
-const express = require('express');
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+const express = require("express");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT),
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
+  host: process.env.SMTP_HOST,
+  port: parseInt(process.env.SMTP_PORT),
+  secure: process.env.SMTP_SECURE === "true",
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
 });
 
 const app = express();
+app.use(express.static(__dirname));
 app.use(express.json());
 
-app.post('/api/order', async (req, res) => {
-    const { orders, name, email, phone, country, city, delivery, address } = req.body;
+app.post("/api/order", async (req, res) => {
+  const { orders, name, email, phone, country, city, delivery, address } =
+    req.body;
 
-    const itemsList = orders.map(o =>
+  const itemsList = orders
+    .map(
+      (o) =>
         `<tr>
             <td style="padding:8px"><img src="${o.image_url}" width="64" height="64" style="border-radius:4px"></td>
             <td style="padding:8px"><strong>${o.name}</strong><br><span style="color:#888">Цвет: ${o.colour} | Размер: ${o.size} | ${o.gender}</span></td>
-        </tr>`
-    ).join('');
+        </tr>`,
+    )
+    .join("");
 
-    const html = `
+  const html = `
         <div style="font-family:sans-serif;max-width:600px;margin:auto">
             <h2 style="border-bottom:3px solid #111;padding-bottom:8px">НЕФТЕГАЗ#БУДУЩЕЕ — Новый заказ</h2>
             <table style="width:100%;margin-bottom:16px">
@@ -42,18 +47,18 @@ app.post('/api/order', async (req, res) => {
             <p style="color:#999;font-size:12px;margin-top:24px">Заказ с сайта neftegazfuture.store</p>
         </div>`;
 
-    try {
-        await transporter.sendMail({
-            from: process.env.MAIL_FROM,
-            to: process.env.MAIL_TO,
-            subject: `НЕФТЕГАЗ#БУДУЩЕЕ — Заказ от ${name}`,
-            html,
-        });
-        res.json({ ok: true });
-    } catch (err) {
-        console.error('Send error:', err);
-        res.status(500).json({ ok: false, error: err.message });
-    }
+  try {
+    await transporter.sendMail({
+      from: process.env.MAIL_FROM,
+      to: process.env.MAIL_TO,
+      subject: `НЕФТЕГАЗ#БУДУЩЕЕ — Заказ от ${name}`,
+      html,
+    });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("Send error:", err);
+    res.status(500).json({ ok: false, error: err.message });
+  }
 });
 
 const port = process.env.PORT || 3000;
