@@ -30,7 +30,7 @@ app.post("/api/order", async (req, res) => {
     )
     .join("");
 
-  const html = `
+  const adminHtml = `
         <div style="font-family:sans-serif;max-width:600px;margin:auto">
             <h2 style="border-bottom:3px solid #111;padding-bottom:8px">НЕФТЕГАЗ#БУДУЩЕЕ — Новый заказ</h2>
             <table style="width:100%;margin-bottom:16px">
@@ -47,13 +47,34 @@ app.post("/api/order", async (req, res) => {
             <p style="color:#999;font-size:12px;margin-top:24px">Заказ с сайта neftegazfuture.store</p>
         </div>`;
 
+  const customerHtml = `
+        <div style="font-family:sans-serif;max-width:600px;margin:auto">
+            <h2 style="border-bottom:3px solid #111;padding-bottom:8px">НЕФТЕГАЗ#БУДУЩЕЕ — Спасибо за заказ!</h2>
+            <p>${name}, ваш заказ принят. Мы свяжемся с вами в ближайшее время.</p>
+            <h3>Детали заказа</h3>
+            <table style="width:100%;border-collapse:collapse">${itemsList}</table>
+            <table style="width:100%;margin-top:16px">
+                <tr><td style="color:#888;width:100px">Доставка</td><td>${delivery}</td></tr>
+                <tr><td style="color:#888">Адрес</td><td>${address}</td></tr>
+            </table>
+            <p style="color:#999;font-size:12px;margin-top:24px">neftegazfuture.store</p>
+        </div>`;
+
   try {
-    await transporter.sendMail({
-      from: process.env.MAIL_FROM,
-      to: process.env.MAIL_TO,
-      subject: `НЕФТЕГАЗ#БУДУЩЕЕ — Заказ от ${name}`,
-      html,
-    });
+    await Promise.all([
+      transporter.sendMail({
+        from: process.env.MAIL_FROM,
+        to: process.env.MAIL_TO,
+        subject: `НЕФТЕГАЗ#БУДУЩЕЕ — Заказ от ${name}`,
+        html: adminHtml,
+      }),
+      transporter.sendMail({
+        from: process.env.MAIL_FROM,
+        to: email,
+        subject: `НЕФТЕГАЗ#БУДУЩЕЕ — Заказ подтверждён`,
+        html: customerHtml,
+      }),
+    ]);
     res.json({ ok: true });
   } catch (err) {
     console.error("Send error:", err);
