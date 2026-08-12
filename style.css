@@ -183,7 +183,7 @@ body {
 .hero_banner span {
     position: relative;
     z-index: 1;
-    font-size: 104px;
+    font-size: 90px;
     color: #fff;
     text-shadow: 0 0 40px rgba(80, 150, 255, 0.6), 0 0 80px rgba(50, 120, 255, 0.4);
     text-align: center;
@@ -315,6 +315,7 @@ body {
     color: #000;
     border-top: 4px solid #000;
     border-bottom: 4px solid #000;
+    padding-top: 4px;
 }
 
 .tape_blue {
@@ -777,8 +778,8 @@ article {
 
 .size_chart_close {
     position: absolute;
-    bottom: -2px;
-    right: 2px;
+    bottom: 13px;
+    right: 17px;
     background: none;
     border: none;
     color: #cc0000;
@@ -964,6 +965,24 @@ article {
 .cart_form select:focus {
     outline: none;
     border-color: #111;
+}
+
+.cart_form input.invalid,
+.cart_form select.invalid {
+    border: 1.5px solid #cc0000;
+}
+
+.cart_form .validation_note {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 7px;
+    color: #cc0000;
+    margin-top: 2px;
+    display: none;
+}
+
+.cart_form .validation_note.show {
+    display: block;
 }
 
 .cart_privacy {
@@ -1375,7 +1394,7 @@ article {
         width: 100%;
         height: 80px;
         transform: none;
-        z-index: 1010;
+        z-index: 100;
         background: #000;
         display: flex;
         align-items: center;
@@ -1870,7 +1889,7 @@ article {
         border: 1px solid #aaa;
         border-radius: 5px;
         padding: 0.4rem 0.8rem;
-        margin: 0.5rem auto 0;
+        margin: 0.5rem auto 35px auto;
         cursor: pointer;
     }
 

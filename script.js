@@ -500,7 +500,38 @@ mandatoryFields.forEach(input => {
     if (input !== phoneInput) {
         input.addEventListener('input', updateCheckoutState);
     }
+    validateOnBlur(input);
 });
+validateOnBlur(deliverySelect);
+
+function validateOnBlur(el) {
+    el.addEventListener('blur', () => {
+        let note = el.parentElement.querySelector('.validation_note');
+        if (!note) {
+            note = document.createElement('span');
+            note.className = 'validation_note';
+            note.textContent = 'Пожалуйста, заполните это поле';
+            el.parentElement.appendChild(note);
+        }
+        let invalid = false;
+        if (el === deliverySelect) {
+            invalid = el.value === '';
+        } else if (el === phoneInput) {
+            invalid = el.value.replace(/\D/g, '').length < 10;
+            if (invalid) note.textContent = 'Введите минимум 10 цифр';
+        } else if (el === emailInput) {
+            invalid = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+            if (invalid) note.textContent = 'Введите корректный e-mail';
+        } else if (el.closest('#address_field') && deliverySelect && deliverySelect.value === 'manager') {
+            invalid = false;
+        } else {
+            invalid = el.value.trim() === '';
+            if (invalid) note.textContent = 'Пожалуйста, заполните это поле';
+        }
+        el.classList.toggle('invalid', invalid);
+        if (note) note.classList.toggle('show', invalid);
+    });
+}
 
 function updateDeliveryOptions() {
     const isRussia = countryInput.value.trim() === 'Россия';
