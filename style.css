@@ -1342,6 +1342,40 @@ article {
     color: #000;
 }
 
+.zoom_popup {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom_popup.hidden {
+    display: none;
+}
+
+.zoom_backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.zoom_card {
+    position: relative;
+    max-height: calc(100vh - 20px);
+    margin: 10px;
+}
+
+.zoom_card img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100vh - 20px);
+    width: auto;
+    height: auto;
+    background: #fff;
+}
+
 @media (max-width: 1180px) {
 
     main {
@@ -1950,6 +1984,8 @@ article {
         animation: fifaDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         width: calc(100vw - 20px);
         max-width: none;
+        max-height: none;
+        margin: 0;
     }
 
     .zoom_card.reset_anim {

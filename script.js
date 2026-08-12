@@ -598,7 +598,6 @@ const zoomCard    = document.querySelector('.zoom_card');
 const zoomBack    = document.querySelector('.zoom_backdrop');
 
 cartList.addEventListener('click', (e) => {
-    if (window.innerWidth > 1180) return;
     const img = e.target.closest('img');
     if (!img || !img.closest('.cart_list li')) return;
 
@@ -716,6 +715,8 @@ checkoutBtn.addEventListener('click', () => {
     if (cart.length === 0 || !allMandatoryFilled()) {
         return;
     }
+
+    closeCart();
 
     const orders = cart.map(item => ({
         name: item.name,
