@@ -946,9 +946,14 @@ article {
   font-size: 16px;
   color: #fff;
   text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    -1px 0 0 #000,
+    1px 0 0 #000,
+    0 -1px 0 #000,
+    0 1px 0 #000,
     2px 2px 0 #000;
 }
 
@@ -965,42 +970,52 @@ article {
 }
 
 .price_new {
-  display: inline-flex;
+  position: absolute;
+  top: 100%;
+  left: 60%;
+  transform: translate(-50%, -6px);
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 1px;
-  padding: 0 5px;
-  background: #000;
-  font-family: "Tiny5", sans-serif;
-  font-weight: 400;
-  font-size: 0.8rem;
+  font-family: "Roboto Slab", serif;
+  font-weight: 650;
+  font-size: 1.2rem;
   color: #ffd600;
   text-shadow:
-    -4px -4px 0 #000,
-    4px -4px 0 #000,
-    -4px 4px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    -1px 0 0 #000,
+    1px 0 0 #000,
+    0 -1px 0 #000,
+    0 1px 0 #000,
+    2px 2px 0 #000,
+    3px 3px 0 #000,
     4px 4px 0 #000,
-    -4px 0 0 #000,
-    4px 0 0 #000,
-    0 -4px 0 #000,
-    0 4px 0 #000;
+    5px 5px 0 #000;
   white-space: nowrap;
   flex-shrink: 0;
-  image-rendering: pixelated;
+  z-index: 3;
 }
 
 .price_new .material-symbols-outlined {
-  font-size: 14px;
+  font-size: 20px;
   color: #ffd600;
   text-shadow:
-    -4px -4px 0 #000,
-    4px -4px 0 #000,
-    -4px 4px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    -1px 0 0 #000,
+    1px 0 0 #000,
+    0 -1px 0 #000,
+    0 1px 0 #000,
+    2px 2px 0 #000,
+    3px 3px 0 #000,
     4px 4px 0 #000,
-    -4px 0 0 #000,
-    4px 0 0 #000,
-    0 -4px 0 #000,
-    0 4px 0 #000;
+    5px 5px 0 #000;
 }
 
 .price_num {
@@ -1009,9 +1024,14 @@ article {
   font-size: 0.9rem;
   color: #fff;
   text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    -1px 0 0 #000,
+    1px 0 0 #000,
+    0 -1px 0 #000,
+    0 1px 0 #000,
     2px 2px 0 #000;
 }
 
@@ -2328,11 +2348,11 @@ article {
   }
 
   .price_new {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
   }
 
   .price_new .material-symbols-outlined {
-    font-size: 24px;
+    font-size: 30px;
   }
 
   .text_size_toggle {
