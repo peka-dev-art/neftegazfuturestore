@@ -193,9 +193,9 @@ body {
 }
 
 .running_title_intro_track span {
-  font-size: 55px;
+  font-size: 20px;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1;
   color: #fff;
   text-transform: uppercase;
   flex-shrink: 0;
@@ -965,31 +965,42 @@ article {
 }
 
 .price_new {
-  position: absolute;
-  left: 2px;
-  bottom: -22px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 2px;
-  padding: 0 8px;
+  justify-content: center;
+  gap: 1px;
+  padding: 0 5px;
   background: #000;
-  font-family: "Roboto Slab", serif;
-  font-weight: 700;
-  font-size: 0.9rem;
-  line-height: 1;
+  font-family: "Tiny5", sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
   color: #ffd600;
+  text-shadow:
+    -4px -4px 0 #000,
+    4px -4px 0 #000,
+    -4px 4px 0 #000,
+    4px 4px 0 #000,
+    -4px 0 0 #000,
+    4px 0 0 #000,
+    0 -4px 0 #000,
+    0 4px 0 #000;
   white-space: nowrap;
-  z-index: 3;
+  flex-shrink: 0;
+  image-rendering: pixelated;
 }
 
 .price_new .material-symbols-outlined {
-  font-size: 0.9rem;
-  line-height: 1;
+  font-size: 14px;
   color: #ffd600;
-  font-weight: 700;
-  font-variation-settings:
-    "FILL" 0,
-    "wght" 700;
+  text-shadow:
+    -4px -4px 0 #000,
+    4px -4px 0 #000,
+    -4px 4px 0 #000,
+    4px 4px 0 #000,
+    -4px 0 0 #000,
+    4px 0 0 #000,
+    0 -4px 0 #000,
+    0 4px 0 #000;
 }
 
 .price_num {
@@ -2318,11 +2329,10 @@ article {
 
   .price_new {
     font-size: 1.4rem;
-    bottom: -28px;
   }
 
   .price_new .material-symbols-outlined {
-    font-size: 1.4rem;
+    font-size: 24px;
   }
 
   .text_size_toggle {

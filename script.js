@@ -471,12 +471,12 @@ function renderCart() {
       "<strong>" +
       item.name +
       "</strong>" +
+      '<span class="price_new">1 750<span class="material-symbols-outlined">currency_ruble</span></span>' +
       '<div class="cart_price_tag">' +
       '<span class="material-symbols-outlined">sell</span>' +
       '<span class="price_num">2 250</span>' +
       '<span class="material-symbols-outlined">currency_ruble</span>' +
       '<span class="price_strike"></span>' +
-      '<span class="price_new">1 750<span class="material-symbols-outlined">currency_ruble</span></span>' +
       "</div>" +
       "</div>" +
       '<div class="cart_item_info">' +
@@ -877,6 +877,13 @@ setTimeout(dismissCookie, 7000);
 
 const runningTitle = document.getElementById("running_title");
 const heroBanner = document.getElementById("hero_banner");
+
+const runningTitleIntro = document.querySelector(".running_title_intro");
+if (runningTitleIntro) {
+  runningTitleIntro.addEventListener("click", () => {
+    runningTitleIntro.style.display = "none";
+  });
+}
 
 document.querySelector(".size_chart_link").addEventListener("click", (e) => {
   e.preventDefault();
