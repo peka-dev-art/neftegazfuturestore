@@ -1,3 +1,5 @@
+// peka-dev-art — designed & built in 2026
+
 const colours = ["Белый", "Синий"];
 const sizes = ["XS", "S", "M", "L", "XL"];
 

@@ -1,3 +1,5 @@
+// peka-dev-art — designed & built in 2026
+
 const express = require("express");
 const nodemailer = require("nodemailer");
 require("dotenv").config();

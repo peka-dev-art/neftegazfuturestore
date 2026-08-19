@@ -1,11 +1,124 @@
-Modern and simple page to sell a couple of products
+# НЕФТЕГАЗ#БУДУЩЕЕ — Лендинг + Магазин
 
-Swiper slider with 5 product cards
+> Примечание: этот README переведён с языка оригинала машинным способом с помощью
+> ИИ-модели DeepSeek V4 Flash в редакторе Zed Code Editor версии 1.15.0.
+> Возможны неточности формулировок.
 
-Shopping cart (sidebar) – add/remove items, see total
+Сайт-магазин без регистрации. Сайт сделан на простом HTML/CSS/JS, сервер на Express.
+Когда покупатель оформляет заказ, сервер отправляет письмо по email через SMTP. Никаких внешних сервисов (типа EmailJS) не нужно.
 
-Order form (name, email, phone) with HTML5 validation
+## Из чего состоит
 
-Express.js back-end server to send the order to marketing team
+- Сайт: `index.html`, `style.css`, `script.js` (обычные файлы, работает на компьютере и на телефоне)
+- Сервер: `server.js` — Express, принимает заказ по адресу `POST /api/order`
+- Письма: Nodemailer (библиотека для отправки почты по SMTP)
+- Настройки: файл `.env` (там лежат пароли и адреса)
 
-Success popup clears the cart after submission
+## Как запустить у себя на компьютере
+
+```bash
+npm install
+cp .env.example .env   # впишите туда свои настоящие данные от почты
+npm start              # сайт откроется по адресу http://localhost:3000
+```
+
+Сервер сам показывает сайт, поэтому всё работает с одного адреса.
+
+## Как работает отправка заказа
+
+Сайт отправляет запрос `POST /api/order` с данными заказа:
+
+```json
+{
+  "orders": [
+    { "name": "…", "colour": "…", "size": "…", "gender": "…", "image_url": "…" }
+  ],
+  "name": "…",
+  "email": "…",
+  "phone": "…",
+  "country": "…",
+  "city": "…",
+  "delivery": "…",
+  "address": "…"
+}
+```
+
+Сервер отправляет **два письма**:
+
+1. **Администратору** — на адрес из настройки `MAIL_TO` (новый заказ)
+2. **Покупателю** — на адрес, который он написал в форме (подтверждение заказа)
+
+## Как установить на сервер компании
+
+Нужен Node.js версии 18 или новее.
+
+1. **Скопируйте проект** на сервер (например, в папку `/opt/neftegazfuturestore`).
+2. **Создайте файл `.env`** по образцу из `.env.example` и впишите настоящие данные:
+
+   | Настройка     | Что это                                                               | Пример                                         |
+   | ------------- | --------------------------------------------------------------------- | ---------------------------------------------- |
+   | `SMTP_HOST`   | адрес почтового сервера                                               | `smtp.ingenix-group.ru` или `smtp.mail.me.com` |
+   | `SMTP_PORT`   | порт почтового сервера                                                | `587` (обычный) / `465` (SSL)                  |
+   | `SMTP_SECURE` | `true` если порт 465, `false` если 587                                | `false`                                        |
+   | `SMTP_USER`   | логин от почтового ящика                                              | `orders@ingenix-group.ru`                      |
+   | `SMTP_PASS`   | пароль от ящика (или специальный пароль для приложений)               | —                                              |
+   | `MAIL_FROM`   | адрес, от которого приходят письма (обычно такой же, как `SMTP_USER`) | `orders@ingenix-group.ru`                      |
+   | `MAIL_TO`     | ящик администратора, куда приходят заказы                             | `admin@ingenix-group.ru`                       |
+   | `PORT`        | номер порта (необязательно, по умолчанию `3000`)                      | `3000`                                         |
+
+   > Совет: если у компании есть свой почтовый сервер — используйте его.
+   > Тогда письма точно дойдут до внутренних адресов.
+   > Если используете iCloud или Gmail — нужен специальный пароль для
+   > приложений, а IP-адрес сервера лучше добавить в белый список на почте.
+
+3. **Установите пакеты и запустите**:
+
+   ```bash
+   npm install --omit=dev
+   ```
+
+   Чтобы сервер работал постоянно (выберите один способ):
+
+   ```bash
+   # способ 1: systemd (рекомендуется) — файл /etc/systemd/system/neftegazfuturestore.service
+   [Unit]
+   Description=Neftegaz Future Store
+   After=network.target
+
+   [Service]
+   WorkingDirectory=/opt/neftegazfuturestore
+   ExecStart=/usr/bin/node server.js
+   Restart=always
+   Environment=NODE_ENV=production
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+   ```bash
+   # способ 2: pm2
+   npm install -g pm2
+   pm2 start server.js --name neftegazfuturestore
+   pm2 save
+   ```
+
+4. **Необязательно** — nginx, чтобы сайт открывался по обычному адресу (порт 80) с защитой:
+
+   ```nginx
+   server {
+       listen 80;
+       server_name store.ingenix-group.ru;
+       location / {
+           proxy_pass http://127.0.0.1:3000;
+           proxy_set_header Host $host;
+       }
+   }
+   ```
+
+5. **Проверьте**: откройте сайт, добавьте товар в корзину, оформите заказ —
+   администратору должно прийти письмо о заказе, а покупателю — подтверждение.
+
+## Vercel (необязательно)
+
+В проекте есть ещё вариант для Vercel (файл `api/order.js`).
+Те же настройки нужно добавить в панели Vercel (Settings → Environment Variables).
