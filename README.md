@@ -118,6 +118,42 @@ npm start              # сайт откроется по адресу http://lo
 5. **Проверьте**: откройте сайт, добавьте товар в корзину, оформите заказ —
    администратору должно прийти письмо о заказе, а покупателю — подтверждение.
 
+## Как обновлять сайт (через git)
+
+Рекомендуемый способ. Проект уже лежит в git-репозитории (ветка `main`).
+
+**Первый раз на сервере** — склонируйте репозиторий (папка `.git` появится сама):
+
+```bash
+git clone https://github.com/peka-dev-art/neftegazfuturestore /opt/neftegazfuturestore
+cd /opt/neftegazfuturestore
+npm install --omit=dev
+```
+
+**Дальше каждое обновление:**
+
+```bash
+# на компьютере разработчика:
+git add -A
+git commit -m "что поменялось"
+git push
+
+# на сервере:
+cd /opt/neftegazfuturestore
+git pull
+npm install --omit=dev              # только если изменился package.json
+pm2 restart neftegazfuturestore     # или: systemctl restart neftegazfuturestore
+```
+
+Почему так удобно:
+
+- всегда видно, что и когда менялось;
+- можно откатиться назад (`git checkout <старый-коммит>`);
+- ничего не потеряется.
+
+> Важно: файл `.env` в git не хранится (он в списке исключений).
+> Его нужно создать на сервере один раз вручную.
+
 ## Vercel (необязательно)
 
 В проекте есть ещё вариант для Vercel (файл `api/order.js`).
