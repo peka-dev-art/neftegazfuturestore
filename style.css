@@ -1687,6 +1687,49 @@ article {
   display: none;
 }
 
+.credit_confirm.dissolving {
+  animation: pixelBomb 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+.credit_confirm.dissolving::after {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  background: transparent;
+  box-shadow:
+    4px 8px 0 #111,
+    20px 15px 0 #333,
+    35px 5px 0 #111,
+    50px 20px 0 #444,
+    8px 25px 0 #222,
+    30px 35px 0 #111,
+    55px 10px 0 #333,
+    15px 40px 0 #111,
+    45px 30px 0 #444,
+    60px 5px 0 #222,
+    5px 15px 0 #333,
+    40px 25px 0 #111,
+    -10px 10px 0 #444,
+    -20px 30px 0 #111,
+    -5px 45px 0 #333,
+    -30px 15px 0 #222,
+    70px 35px 0 #111,
+    25px 50px 0 #333,
+    55px 45px 0 #444,
+    10px 55px 0 #111;
+  animation: fragmentBomb 0.6s ease-out forwards;
+  border-radius: 6px;
+}
+
+.version_index {
+  font-family: "Tiny5", sans-serif;
+  font-size: 10px;
+  color: #000000;
+  opacity: 0.28;
+  margin: 0;
+}
+
 .footer_link {
   font-family: "Roboto", sans-serif;
   font-weight: 200;
@@ -2162,6 +2205,10 @@ article {
     font-size: 0.7rem;
     color: #000;
     margin: 0;
+  }
+
+  .version_index {
+    font-size: 5px;
   }
 
   .footer_links {

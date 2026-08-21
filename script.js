@@ -928,10 +928,24 @@ if (runningTitleIntro) {
 
 const creditLink = document.querySelector(".credit_link");
 const creditConfirm = document.querySelector(".credit_confirm");
+let creditTimer = null;
 if (creditLink && creditConfirm) {
   creditLink.addEventListener("click", () => {
+    clearTimeout(creditTimer);
+    creditConfirm.classList.remove("dissolving");
     creditConfirm.classList.remove("hidden");
+    creditTimer = setTimeout(() => {
+      creditConfirm.classList.add("dissolving");
+    }, 1500);
   });
+
+  creditConfirm.addEventListener("animationend", () => {
+    if (creditConfirm.classList.contains("dissolving")) {
+      creditConfirm.classList.remove("dissolving");
+      creditConfirm.classList.add("hidden");
+    }
+  });
+
   creditConfirm.addEventListener("click", () => {
     window.open(
       "https://github.com/peka-dev-art",
