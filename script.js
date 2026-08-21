@@ -143,6 +143,7 @@ function skipIntro() {
   mainSite.classList.remove("hidden", "fading_in");
   mainSite.classList.add("visible");
   introScreen._skipped = true;
+  requestAnimationFrame(() => syncSpecialLogos());
   setTimeout(() => swiper.update(), 100);
 }
 
@@ -184,6 +185,7 @@ if (sessionStorage.getItem("skipIntro")) {
       requestAnimationFrame(() => {
         mainSite.classList.add("visible");
         fadeOverlay.classList.remove("active");
+        syncSpecialLogos();
       });
     });
   }, 18500);
@@ -624,22 +626,9 @@ function validateOnBlur(el) {
 }
 
 function updateDeliveryOptions() {
-  const isRussia = countryInput.value.trim() === "Россия";
-
-  if (isRussia) {
-    deliverySelect.innerHTML =
-      '<option value="">Выберите способ</option>' +
-      '<option value="pochta">Почта России</option>' +
-      '<option value="sdek">СДЕК</option>' +
-      '<option value="ozon">Озон Доставка</option>' +
-      '<option value="wildberries">Wildberries</option>' +
-      '<option value="manager">Уточнить у менеджера</option>';
-  } else {
-    deliverySelect.innerHTML =
-      '<option value="">Выберите способ</option>' +
-      '<option value="pochta">Почта России / EMS</option>' +
-      '<option value="manager">Уточнить у менеджера</option>';
-  }
+  deliverySelect.innerHTML =
+    '<option value="">Выберите способ</option>' +
+    '<option value="manager">Уточнить у менеджера</option>';
 
   addressLabel.textContent = "Адрес";
   addressField.classList.remove("hidden");
@@ -880,13 +869,6 @@ setTimeout(dismissCookie, 7000);
 const runningTitle = document.getElementById("running_title");
 const heroBanner = document.getElementById("hero_banner");
 
-const runningTitleIntro = document.querySelector(".running_title_intro");
-if (runningTitleIntro) {
-  runningTitleIntro.addEventListener("click", () => {
-    runningTitleIntro.style.display = "none";
-  });
-}
-
 document.querySelector(".size_chart_link").addEventListener("click", (e) => {
   e.preventDefault();
   if (window.innerWidth <= 1180) {
@@ -916,3 +898,39 @@ document.querySelector(".size_chart_close").addEventListener("click", () => {
     sizeChartPopup.classList.add("hidden");
   }
 });
+
+function syncHeaderLogoHeight() {
+  const text = document.querySelector(".logo_header_text");
+  const img = document.querySelector(".logo_header img");
+  if (!text || !img) return;
+  const h = text.getBoundingClientRect().height;
+  if (h > 0) img.style.height = h + "px";
+}
+
+function syncFooterLogoWidth() {
+  const title = document.querySelector(".footer_special_title");
+  const logo = document.querySelector(".footer_special_logo");
+  if (!title || !logo) return;
+  const w = title.getBoundingClientRect().width;
+  if (w > 0) logo.style.width = w + "px";
+}
+
+function syncSpecialLogos() {
+  syncHeaderLogoHeight();
+  syncFooterLogoWidth();
+}
+
+syncSpecialLogos();
+window.addEventListener("resize", syncSpecialLogos);
+window.addEventListener("load", syncSpecialLogos);
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(syncSpecialLogos);
+}
+
+if (window.ResizeObserver) {
+  const logoSizeObserver = new ResizeObserver(() => syncSpecialLogos());
+  const headerText = document.querySelector(".logo_header_text");
+  const footerTitle = document.querySelector(".footer_special_title");
+  if (headerText) logoSizeObserver.observe(headerText);
+  if (footerTitle) logoSizeObserver.observe(footerTitle);
+}
