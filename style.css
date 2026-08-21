@@ -249,32 +249,31 @@ body {
   opacity: 1;
 }
 
-.logo_header {
-  display: grid;
-  grid-template-columns: auto 1fr 1fr 1fr;
-  align-items: center;
-  gap: 7px;
-  max-width: 1200px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 0.5rem 1rem;
-}
-
-.logo_header img {
-  display: block;
-  width: auto;
-  height: auto;
-  grid-column: 1;
-  align-self: center;
-}
-
-.logo_header_text {
-  grid-column: 2 / span 3;
+.running_title_intro {
+  position: relative;
+  height: 80px;
+  background: #000;
   font-family: "Roboto", sans-serif;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.running_title_intro_track {
+  display: flex;
+  white-space: nowrap;
+  animation: runningMarquee 120s linear infinite;
+}
+
+.running_title_intro_track span {
+  font-size: 20px;
   font-weight: 700;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #000;
+  line-height: 1;
+  color: #fff;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  padding: 0 1rem;
 }
 
 .hero_banner {
@@ -319,9 +318,22 @@ body {
   }
 }
 
-.hero_banner span {
+.hero_banner_content {
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: heroDrift 3s ease-in-out infinite;
+}
+
+.hero_logo {
+  display: block;
+  height: 90px;
+  width: auto;
+}
+
+.hero_banner span {
   font-size: 90px;
   color: #fff;
   text-shadow:
@@ -330,7 +342,6 @@ body {
   text-align: center;
   padding: 0 1rem;
   line-height: 1.1;
-  animation: heroDrift 3s ease-in-out infinite;
 }
 
 @keyframes heroDrift {
@@ -1638,7 +1649,42 @@ article {
   display: block;
   width: 67px;
   height: auto;
-  filter: drop-shadow(6px 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.footer_credit_cell {
+  position: relative;
+}
+
+.credit_link {
+  cursor: pointer;
+}
+
+.credit_confirm {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  z-index: 10;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.credit_confirm:hover {
+  background: #333;
+}
+
+.credit_confirm.hidden {
+  display: none;
 }
 
 .footer_link {
@@ -1777,7 +1823,7 @@ article {
     display: none;
   }
 
-  .logo_header {
+  .running_title_intro {
     display: none;
   }
 

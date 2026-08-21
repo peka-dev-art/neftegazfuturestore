@@ -143,7 +143,7 @@ function skipIntro() {
   mainSite.classList.remove("hidden", "fading_in");
   mainSite.classList.add("visible");
   introScreen._skipped = true;
-  requestAnimationFrame(() => syncSpecialLogos());
+  requestAnimationFrame(() => syncFooterLogoWidth());
   setTimeout(() => swiper.update(), 100);
 }
 
@@ -185,7 +185,7 @@ if (sessionStorage.getItem("skipIntro")) {
       requestAnimationFrame(() => {
         mainSite.classList.add("visible");
         fadeOverlay.classList.remove("active");
-        syncSpecialLogos();
+        syncFooterLogoWidth();
       });
     });
   }, 18500);
@@ -899,14 +899,6 @@ document.querySelector(".size_chart_close").addEventListener("click", () => {
   }
 });
 
-function syncHeaderLogoHeight() {
-  const text = document.querySelector(".logo_header_text");
-  const img = document.querySelector(".logo_header img");
-  if (!text || !img) return;
-  const h = text.getBoundingClientRect().height;
-  if (h > 0) img.style.height = h + "px";
-}
-
 function syncFooterLogoWidth() {
   const title = document.querySelector(".footer_special_title");
   const logo = document.querySelector(".footer_special_logo");
@@ -915,22 +907,36 @@ function syncFooterLogoWidth() {
   if (w > 0) logo.style.width = w + "px";
 }
 
-function syncSpecialLogos() {
-  syncHeaderLogoHeight();
-  syncFooterLogoWidth();
-}
-
-syncSpecialLogos();
-window.addEventListener("resize", syncSpecialLogos);
-window.addEventListener("load", syncSpecialLogos);
+syncFooterLogoWidth();
+window.addEventListener("resize", syncFooterLogoWidth);
+window.addEventListener("load", syncFooterLogoWidth);
 if (document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(syncSpecialLogos);
+  document.fonts.ready.then(syncFooterLogoWidth);
 }
 
 if (window.ResizeObserver) {
-  const logoSizeObserver = new ResizeObserver(() => syncSpecialLogos());
-  const headerText = document.querySelector(".logo_header_text");
   const footerTitle = document.querySelector(".footer_special_title");
-  if (headerText) logoSizeObserver.observe(headerText);
-  if (footerTitle) logoSizeObserver.observe(footerTitle);
+  if (footerTitle) new ResizeObserver(syncFooterLogoWidth).observe(footerTitle);
+}
+
+const runningTitleIntro = document.querySelector(".running_title_intro");
+if (runningTitleIntro) {
+  runningTitleIntro.addEventListener("click", () => {
+    runningTitleIntro.style.display = "none";
+  });
+}
+
+const creditLink = document.querySelector(".credit_link");
+const creditConfirm = document.querySelector(".credit_confirm");
+if (creditLink && creditConfirm) {
+  creditLink.addEventListener("click", () => {
+    creditConfirm.classList.remove("hidden");
+  });
+  creditConfirm.addEventListener("click", () => {
+    window.open(
+      "https://github.com/peka-dev-art",
+      "_blank",
+      "noopener,noreferrer",
+    );
+  });
 }
